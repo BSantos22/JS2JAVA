@@ -7,3 +7,5 @@ Rhino (JavaScript Interpreter, but the frontedn can be useful for parsing JavaSc
 GSON https://github.com/google/gson
 
 Exemplo https://github.com/LuisTAC/COMP_JS2JAVA
+
+Parser .g4 http://www.antlr.org/
