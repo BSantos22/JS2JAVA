@@ -1,0 +1,85 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "a"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "*",
+                        "left": {
+                            "type": "Literal",
+                            "value": 6,
+                            "raw": "6"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": 7,
+                            "raw": "7"
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "b"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "*",
+                        "left": {
+                            "type": "Literal",
+                            "value": 3,
+                            "raw": "3"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": 2,
+                            "raw": "2"
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "c"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "*",
+                        "left": {
+                            "type": "Identifier",
+                            "name": "a"
+                        },
+                        "right": {
+                            "type": "Identifier",
+                            "name": "b"
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        }
+    ],
+    "sourceType": "script"
+}
