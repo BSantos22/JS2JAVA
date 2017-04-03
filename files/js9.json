@@ -1,0 +1,40 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "d"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 2,
+                        "raw": "2"
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                    "type": "Identifier",
+                    "name": "d"
+                },
+                "right": {
+                    "type": "Literal",
+                    "value": 3,
+                    "raw": "3"
+                }
+            }
+        }
+    ],
+    "sourceType": "script"
+}

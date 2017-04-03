@@ -29,3 +29,11 @@ var e = 2.0;
 js8
 var e = 3;
 var d = e+d*2*2;
+
+js9
+var d = 2;
+d = 3;
+
+js10
+var d = 2;
+d = 3*4.0;

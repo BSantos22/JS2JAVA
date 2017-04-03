@@ -114,9 +114,9 @@ public class TypeInferrer {
 			switch (type) {
 			case "VariableDeclarator":
 				ArrayList<String> vd = new ArrayList<String>();
-				JsonElement init = expr.get(i).getAsJsonObject().get("init");
-				if (init.isJsonObject()) {
-					vd = getTypes(var_name, init.getAsJsonObject());
+				JsonElement init_vd = expr.get(i).getAsJsonObject().get("init");
+				if (init_vd.isJsonObject()) {
+					vd = getTypes(var_name, init_vd.getAsJsonObject());
 				}
 				if (vd == null) {
 					return null;
@@ -126,7 +126,15 @@ public class TypeInferrer {
 				}
 				break;
 			case "AssignmentExpression":
-			
+				ArrayList<String> ae = new ArrayList<String>();
+				JsonElement right_ae = expr.get(i).getAsJsonObject().get("right");
+				if(right_ae.isJsonObject()) {
+					ae = getTypes(var_name, right_ae.getAsJsonObject());
+				}
+				
+				if(ae == null) return null;
+				else possible_types.addAll(ae);
+				
 				break;
 			}
 			
