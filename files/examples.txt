@@ -1,0 +1,31 @@
+js1
+var d = 3*2*2.0;
+
+js2
+var a = 2;
+var d = a*2*2.0;
+
+js3
+var a = 2;
+var d = a*2*2;
+
+js4
+var b = 4;
+var d = b*2*2;
+
+js5
+var e = 3.0;
+var d = e*2*2;
+
+js6
+var e = 3;
+var d = e*2*2;
+
+js7
+var e;
+var d = e*2*2;
+var e = 2.0;
+
+js8
+var e = 3;
+var d = e+d*2*2;

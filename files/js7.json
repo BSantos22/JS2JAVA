@@ -8,13 +8,9 @@
                     "type": "VariableDeclarator",
                     "id": {
                         "type": "Identifier",
-                        "name": "a"
+                        "name": "e"
                     },
-                    "init": {
-                        "type": "Literal",
-                        "value": 2,
-                        "raw": "2"
-                    }
+                    "init": null
                 }
             ],
             "kind": "var"
@@ -36,7 +32,7 @@
                             "operator": "*",
                             "left": {
                                 "type": "Identifier",
-                                "name": "a"
+                                "name": "e"
                             },
                             "right": {
                                 "type": "Literal",
@@ -47,8 +43,26 @@
                         "right": {
                             "type": "Literal",
                             "value": 2,
-                            "raw": "2.0"
+                            "raw": "2"
                         }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "e"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 2,
+                        "raw": "2.0"
                     }
                 }
             ],

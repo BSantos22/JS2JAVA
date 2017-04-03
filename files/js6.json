@@ -8,12 +8,12 @@
                     "type": "VariableDeclarator",
                     "id": {
                         "type": "Identifier",
-                        "name": "a"
+                        "name": "e"
                     },
                     "init": {
                         "type": "Literal",
-                        "value": 2,
-                        "raw": "2"
+                        "value": 3,
+                        "raw": "3"
                     }
                 }
             ],
@@ -36,7 +36,7 @@
                             "operator": "*",
                             "left": {
                                 "type": "Identifier",
-                                "name": "a"
+                                "name": "e"
                             },
                             "right": {
                                 "type": "Literal",
@@ -47,7 +47,7 @@
                         "right": {
                             "type": "Literal",
                             "value": 2,
-                            "raw": "2.0"
+                            "raw": "2"
                         }
                     }
                 }
