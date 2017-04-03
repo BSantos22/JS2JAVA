@@ -32,6 +32,9 @@ public class JS2Java {
 		
 		TypeInferrer inferrer = new TypeInferrer(vars);
 		inferrer.addTypes(js);
-		System.out.println(js);
+		inferrer.printInfers();
+		
+		
+		//System.out.println(js);
 	}
 }
