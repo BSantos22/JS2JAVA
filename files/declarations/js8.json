@@ -8,12 +8,19 @@
                     "type": "VariableDeclarator",
                     "id": {
                         "type": "Identifier",
-                        "name": "d"
+                        "name": "s"
                     },
                     "init": {
-                        "type": "Literal",
-                        "value": 2,
-                        "raw": "\"2\""
+                        "type": "LogicalExpression",
+                        "operator": "&&",
+                        "left": {
+                            "type": "Identifier",
+                            "name": "d"
+                        },
+                        "right": {
+                            "type": "Identifier",
+                            "name": "e"
+                        }
                     }
                 }
             ],

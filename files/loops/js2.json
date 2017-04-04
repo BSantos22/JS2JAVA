@@ -1,0 +1,17 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "WhileStatement",
+            "test": {
+                "type": "Identifier",
+                "name": "s"
+            },
+            "body": {
+                "type": "BlockStatement",
+                "body": []
+            }
+        }
+    ],
+    "sourceType": "script"
+}

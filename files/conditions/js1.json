@@ -1,0 +1,27 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "BinaryExpression",
+                "operator": "<",
+                "left": {
+                    "type": "Identifier",
+                    "name": "i"
+                },
+                "right": {
+                    "type": "Literal",
+                    "value": 10,
+                    "raw": "10"
+                }
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": []
+            },
+            "alternate": null
+        }
+    ],
+    "sourceType": "script"
+}

@@ -1,11 +1,14 @@
 package js2java;
 
 import java.io.File;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.google.gson.JsonObject;
 
 public class JS2Java {
+	public JS2Java() {}
+	
 	public static void main(String args[]) {
 		String varsFilepath;
 		String jsFilepath;
@@ -33,8 +36,13 @@ public class JS2Java {
 		TypeInferrer inferrer = new TypeInferrer(vars);
 		inferrer.addTypes(js);
 		inferrer.printInfers();
-		
-		
-		//System.out.println(js);
+	}
+	
+	public Map<String, String> test(String jsFile, String typesFile) {
+		JsonReader parser = new JsonReader();
+		JsonObject js = parser.parse(new File(jsFile));
+		JsonObject vars = parser.parse(new File(typesFile));
+		TypeInferrer inferrer = new TypeInferrer(vars);
+		return inferrer.addTypes(js);
 	}
 }

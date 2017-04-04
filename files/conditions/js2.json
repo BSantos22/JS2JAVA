@@ -1,0 +1,18 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Identifier",
+                "name": "s"
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": []
+            },
+            "alternate": null
+        }
+    ],
+    "sourceType": "script"
+}

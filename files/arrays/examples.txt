@@ -1,0 +1,17 @@
+js1
+var c = 3;
+var e = [c, "string", 3.0];
+
+js2
+var c = 3;
+var e = [c, 'string', 3.0];
+var d = e;
+e = [];
+
+js3
+var d = [1, 2, 3, 4, 5];
+var e = a[3];
+
+js4
+var d = [1, 2, 3, 4, 5];
+var e = d[f];

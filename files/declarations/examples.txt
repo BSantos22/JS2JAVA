@@ -24,16 +24,9 @@ var d = e*2*2;
 js7
 var e;
 var d = e*2*2;
-var e = 2.0;
 
 js8
-var e = 3;
-var d = e+d*2*2;
+var d = true;
+var s = d && e;
 
-js9
-var d = 2;
-d = 3;
 
-js10
-var d = 2;
-d = 3*4.0;

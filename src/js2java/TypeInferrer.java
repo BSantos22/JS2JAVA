@@ -14,13 +14,12 @@ public class TypeInferrer {
 	private Map<String, String> vars;
 	private Map<String, String> infers;
 	private Map<String, ArrayList<JsonObject>> unknown_types;
-
+	
 	public TypeInferrer(JsonObject vars) {
 		this.vars = createVarsMap(vars);
-		infers = new HashMap<String, String>();
 	}
-
-	public void addTypes(JsonObject js) {
+	
+	public Map<String, String> addTypes(JsonObject js) {
 		unknown_types = new HashMap<String, ArrayList<JsonObject>>();
 		addKnownTypes(js);
 		if (!unknown_types.isEmpty()) {
@@ -29,11 +28,13 @@ public class TypeInferrer {
 		else {
 			System.out.println("No variable types to infer");
 		}
+		
+		return vars;
 	}
-
+	
 	private String addKnownTypes(JsonObject js) {
 		String no_type = null;
-
+		
 		for (Map.Entry<String, JsonElement> entry: js.entrySet()) {
 			if (entry.getKey().equals("type") && entry.getValue().getAsString().equals("Identifier")) {
 				String var = js.get("name").getAsString();
@@ -44,7 +45,7 @@ public class TypeInferrer {
 					no_type = var;
 				}
 			}
-
+			
 			if (entry.getValue() instanceof JsonArray) {
 				addKnownTypes((JsonArray) entry.getValue());
 			}
@@ -62,10 +63,10 @@ public class TypeInferrer {
 				}
 			}
 		}
-
+		
 		return no_type;
 	}
-
+	
 	private void addKnownTypes(JsonArray list) {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i) instanceof JsonObject) {
@@ -73,7 +74,7 @@ public class TypeInferrer {
 			}
 		}
 	}
-
+	
 	private Map<String, String> createVarsMap(JsonObject vars) {
 		HashMap <String,String> v = new HashMap<String,String>();
 		if (vars.isJsonObject()) {
@@ -82,97 +83,56 @@ public class TypeInferrer {
 				v.put(((JsonObject) a.get(i)).get("name").getAsString(), ((JsonObject) a.get(i)).get("type").getAsString());
 			}
 		}
-
+		
 		return v;
 	}
-
-	public void printTypes() {
-		Iterator<String> it = vars.keySet().iterator();
-		
-		while(it.hasNext()) {
-			String key = it.next();
-			String type = vars.get(key);
-			if(type != null)
-				System.out.println(key + " - " + type);
-		}
-	}
 	
-	public void printInfers() {
-		Iterator<String> it = infers.keySet().iterator();
-		
-		while(it.hasNext()) {
-			String key = it.next();
-			String type = infers.get(key);
-			if(type != null)
-				System.out.println(key + " - " + type);
-		}
-	}
-
 	private void inferTypes(JsonObject js) {
 		Iterator<String> it = unknown_types.keySet().iterator();
-
+		
 		while(it.hasNext()) {
 			String key = it.next();
 			ArrayList<JsonObject> op = unknown_types.get(key);
-
-			String type = inferVariable(key, op);			
+			
+			String type = inferVariable(key, op);
 			if (type != null) {
 				vars.put(key, type);
 				infers.put(key, type);
 				addKnownTypes(js);
-				unknown_types.remove(key);
+				it.remove();
 			}
-
+			
 			if (!it.hasNext()) {
 				it = unknown_types.keySet().iterator();
 			}
+			
+			
 		}
 	}
-
+	
 	private String inferVariable(String var_name, ArrayList<JsonObject> expr) {
 		ArrayList<String> possible_types = new ArrayList<String>();
-
+		
 		for (int i = 0; i < expr.size(); i++) {
-			String type = expr.get(i).getAsJsonObject().get("type").getAsString();
-
-			switch (type) {
-			case "VariableDeclarator":
-				ArrayList<String> vd = new ArrayList<String>();
-				JsonElement init_vd = expr.get(i).getAsJsonObject().get("init");
-				if (init_vd.isJsonObject()) {
-					vd = getTypes(var_name, init_vd.getAsJsonObject());
-				}
-				if (vd == null) {
-					return null;
-				}
-				else {
-					possible_types.addAll(vd);
-				}
-				break;
-			case "AssignmentExpression":
-				ArrayList<String> ae = new ArrayList<String>();
-				JsonElement right_ae = expr.get(i).getAsJsonObject().get("right");
-				if(right_ae.isJsonObject()) {
-					ae = getTypes(var_name, right_ae.getAsJsonObject());
-				}
-
-				if(ae == null) return null;
-				else possible_types.addAll(ae);
-
-				break;
+			JsonObject obj = expr.get(i).getAsJsonObject();
+			String type = obj.get("type").getAsString();
+			ArrayList<String> t = new ArrayList<String>();
+			
+			t = getTypes(var_name, obj, type);
+			if (t != null) {
+				possible_types.addAll(t);
 			}
-
 		}
-
+		
 		return getMaxType(possible_types);
 	}
-
-	private ArrayList<String> getTypes(String var_name, JsonObject expr) {
+	
+	private ArrayList<String> getTypes(String var_name, JsonObject expr, String expression_type) {
 		ArrayList<String> types = new ArrayList<String>();
-
+		
 		for (Map.Entry<String, JsonElement> entry: expr.entrySet()) {
 			if (entry.getValue().isJsonObject()) {
-				ArrayList<String> a = getTypes(var_name, (JsonObject) entry.getValue());
+				ArrayList<String> a = getTypes(var_name, (JsonObject) entry.getValue(), expression_type);
 				if (a == null) {
 					return null;
 				}
@@ -181,40 +141,50 @@ public class TypeInferrer {
 				}
 			}
 			else if (entry.getKey().equals("type")) {
-				if (entry.getValue().getAsString().equals("Identifier") && !expr.get("name").getAsString().equals(var_name)) {
-					return null;
-				}
-				else if (entry.getValue().getAsString().equals("Literal")) {
+				if (entry.getValue().getAsString().equals("Literal")) {
 					String v = expr.get("raw").getAsString();
-
+			
 					if (v.equals("true") || v.equals("false")) {
 						types.add("boolean");
+					}
+					else if (v.contains("\"")) {
+						types.add("String");
 					}
 					else if (v.contains(".")) {
 						types.add("double");
 					}
-
-					else if (v.contains("\"")) {
-						types.add("string");
-					}
-
 					else {
 						types.add("int");
 					}
 				}
-				else if (expr.has("name")){
+				else if (entry.getValue().getAsString().equals("ArrayExpression")) {
+					types.add("Object[]");
+				}
+				else if (entry.getValue().getAsString().equals("MemberExpression")) {					
+					JsonObject isIndex = expr.get("property").getAsJsonObject();
+					if (isIndex.has("name") && isIndex.get("name").getAsString().equals(var_name)) {
+						types.add("int");
+					}
+					else {
+						types.add("Object");
+					}
+				}
+				else if (expression_type.equals("WhileStatement") || expression_type.equals("IfStatement") || expression_type.equals("LogicalExpression")) {
+					types.add("boolean");
+				}
+				else if (entry.getValue().getAsString().equals("Identifier") && !expr.get("name").getAsString().equals(var_name)) {
+					return null;
+				}
+				else if (expr.has("name") && !entry.getValue().getAsString().equals("Identifier")){
 					types.add(entry.getValue().getAsString());
 				}
 			}
 		}
-
+		
 		return types;
 	}
-
+	
 	private String getMaxType(ArrayList<String> types) {
-		if(types.contains("string")){
-			return "string";
-		}
 		if (types.contains("double")) {
 			return "double";
 		}
@@ -239,7 +209,36 @@ public class TypeInferrer {
 		if (types.contains("boolean")) {
 			return "boolean";
 		}
-
+		if (types.contains("String")) {
+			return "String";
+		}
+		if (types.contains("Object")) {
+			return "Object";
+		}
+		if (types.contains("Object[]")) {
+			return "Object[]";
+		}
+		
 		return null;
+	}
+	
+	public void printTypes() {
+		Iterator<String> it = vars.keySet().iterator();
+		while(it.hasNext()) {
+			String key = it.next();
+			String type = vars.get(key);
+			if(type != null)
+				System.out.println(key + " - " + type);
+		}
+	}
+	
+	public void printInfers() {
+		Iterator<String> it = infers.keySet().iterator();
+		while(it.hasNext()) {
+			String key = it.next();
+			String type = infers.get(key);
+			if(type != null)
+				System.out.println(key + " - " + type);
+		}
 	}
 }
