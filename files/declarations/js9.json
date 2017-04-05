@@ -1,0 +1,33 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "d"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "/",
+                        "left": {
+                            "type": "Literal",
+                            "value": 7,
+                            "raw": "7"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": 6,
+                            "raw": "6"
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        }
+    ],
+    "sourceType": "script"
+}

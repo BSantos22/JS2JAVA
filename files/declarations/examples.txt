@@ -29,4 +29,5 @@ js8
 var d = true;
 var s = d && e;
 
-
+js9
+var d = 7 / 6;

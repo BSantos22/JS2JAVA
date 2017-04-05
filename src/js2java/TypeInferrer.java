@@ -20,6 +20,8 @@ public class TypeInferrer {
 	}
 	
 	public Map<String, String> addTypes(JsonObject js) {
+		infers = new HashMap<String, String>();
+		
 		unknown_types = new HashMap<String, ArrayList<JsonObject>>();
 		addKnownTypes(js);
 		if (!unknown_types.isEmpty()) {
@@ -155,6 +157,11 @@ public class TypeInferrer {
 					}
 					else {
 						types.add("int");
+					}
+				}
+				else if (entry.getValue().getAsString().equals("BinaryExpression")) {
+					if(expr.get("operator").getAsString() == "/") {
+						types.add("double");
 					}
 				}
 				else if (entry.getValue().getAsString().equals("ArrayExpression")) {
