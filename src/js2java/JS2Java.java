@@ -37,7 +37,7 @@ public class JS2Java {
 		JsonReader parser = new JsonReader();
 		JsonObject js = parser.parse(jsFile);
 		
-		/*
+		/* OBSOLETE
 		File jsFile = new File("files/" + jsFilepath + ".json");
 		JsonReader parser = new JsonReader();
 		JsonObject js = parser.parse(jsFile);
@@ -60,7 +60,7 @@ public class JS2Java {
 	}
 	
 	public static String checkFileDirectory(String filename) {
-		System.out.println("\n\tChecking for " + filename + "\n");
+		//System.out.println("\n\tChecking for " + filename + "\n");
 		String dir = "";
 		File files = new File("files");
 		File[] filesFolders = files.listFiles();
@@ -68,15 +68,14 @@ public class JS2Java {
 		
 		for(int i=0; i < filesFolders.length; i++) {
 			if(filesFolders[i].isDirectory()) {
-				System.out.println("\n" + filesFolders[i].getName() + " is directory");
+				//System.out.println("\n" + filesFolders[i].getName() + " is directory");
 				jsonFiles = filesFolders[i].listFiles();
 				
 				for(int k=0; k < jsonFiles.length; k++) {
-					System.out.println(jsonFiles[k].getName() + " tested");
-					
-					if(jsonFiles[k].getName() == filename) {
-						dir = filesFolders[i].getName();
-						System.out.println("\tFound");
+					//System.out.println(jsonFiles[k].getName() + " checked");
+					if(jsonFiles[k].getName().equals(filename)) {
+						dir = filesFolders[i].getPath();
+						//System.out.println("Found " + dir + "\n");
 						return dir;
 					}
 				}
