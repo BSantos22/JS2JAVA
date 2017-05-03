@@ -1,5 +1,5 @@
-js1
+cond1
 if (i < 10) {}
 
-js2
+cond2
 if (s) {}

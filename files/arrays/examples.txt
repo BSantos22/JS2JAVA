@@ -1,17 +1,17 @@
-js1
+array1
 var c = 3;
 var e = [c, "string", 3.0];
 
-js2
+array2
 var c = 3;
 var e = [c, 'string', 3.0];
 var d = e;
 e = [];
 
-js3
+array3
 var d = [1, 2, 3, 4, 5];
 var e = a[3];
 
-js4
+array4
 var d = [1, 2, 3, 4, 5];
 var e = d[f];

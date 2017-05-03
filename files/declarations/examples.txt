@@ -1,33 +1,33 @@
-js1
+dec1
 var d = 3*2*2.0;
 
-js2
+dec2
 var a = 2;
 var d = a*2*2.0;
 
-js3
+dec3
 var a = 2;
 var d = a*2*2;
 
-js4
+dec4
 var b = 4;
 var d = b*2*2;
 
-js5
+dec5
 var e = 3.0;
 var d = e*2*2;
 
-js6
+dec6
 var e = 3;
 var d = e*2*2;
 
-js7
+dec7
 var e;
 var d = e*2*2;
 
-js8
+dec8
 var d = true;
 var s = d && e;
 
-js9
+dec9
 var d = 7 / 6;
