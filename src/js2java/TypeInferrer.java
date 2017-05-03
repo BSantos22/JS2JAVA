@@ -11,8 +11,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 public class TypeInferrer {
-	private Map<String, String> vars;
-	private Map<String, String> infers;
+	private Map<String, String> vars; // map com todos os tipos de variaveis
+	private Map<String, String> infered; // map com os tipos de variaveis que se teve q inferir
 	private Map<String, ArrayList<JsonObject>> unknown_types;
 	
 	public TypeInferrer(JsonObject vars) {
@@ -20,7 +20,7 @@ public class TypeInferrer {
 	}
 	
 	public Map<String, String> addTypes(JsonObject js) {
-		infers = new HashMap<String, String>();
+		infered = new HashMap<String, String>();
 		
 		unknown_types = new HashMap<String, ArrayList<JsonObject>>();
 		addKnownTypes(js);
@@ -99,7 +99,7 @@ public class TypeInferrer {
 			String type = inferVariable(key, op);
 			if (type != null) {
 				vars.put(key, type);
-				infers.put(key, type);
+				infered.put(key, type);
 				addKnownTypes(js);
 				it.remove();
 			}
@@ -107,7 +107,6 @@ public class TypeInferrer {
 			if (!it.hasNext()) {
 				it = unknown_types.keySet().iterator();
 			}
-			
 			
 		}
 	}
@@ -239,13 +238,17 @@ public class TypeInferrer {
 		}
 	}
 	
-	public void printInfers() {
-		Iterator<String> it = infers.keySet().iterator();
+	public void printInfered() {
+		Iterator<String> it = infered.keySet().iterator();
 		while(it.hasNext()) {
 			String key = it.next();
-			String type = infers.get(key);
+			String type = infered.get(key);
 			if(type != null)
 				System.out.println(key + " - " + type);
 		}
+	}
+	
+	public String getTypeFor(String var) {
+		return vars.get(var);
 	}
 }

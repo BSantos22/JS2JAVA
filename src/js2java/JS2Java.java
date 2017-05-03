@@ -48,7 +48,9 @@ public class JS2Java {
 		
 		TypeInferrer inferrer = new TypeInferrer(vars);
 		inferrer.addTypes(js);
-		inferrer.printInfers();
+		inferrer.printInfered();
+		
+		Output output = new Output(vars, inferrer);
 	}
 	
 	public Map<String, String> test(String jsFile, String typesFile) {
