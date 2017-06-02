@@ -18,8 +18,8 @@ public class JS2Java {
 			System.out.println("Javascript code file name: ");
 			jsFilepath = reader.nextLine();
 			jsFilepath += ".json";
-			System.out.println("Variable types file name: ");
-			varsFilepath = reader.nextLine();
+			//System.out.println("Variable types file name: ");
+			//varsFilepath = reader.nextLine();
 			reader.close();
 		}
 		else {
@@ -37,20 +37,16 @@ public class JS2Java {
 		JsonReader parser = new JsonReader();
 		JsonObject js = parser.parse(jsFile);
 		
-		/* OBSOLETE
-		File jsFile = new File("files/" + jsFilepath + ".json");
-		JsonReader parser = new JsonReader();
-		JsonObject js = parser.parse(jsFile);
-		*/
-		
-		File varsFile = new File("files/" + varsFilepath + ".json");
+		//File varsFile = new File("files/" + varsFilepath + ".json");
+		File varsFile = new File("files/" + "types1" + ".json");
 		JsonObject vars = parser.parse(varsFile);
 		
 		TypeInferrer inferrer = new TypeInferrer(vars);
 		inferrer.addTypes(js);
 		inferrer.printInfered();
 		
-		Output output = new Output(vars, inferrer);
+		Output output = new Output(js, inferrer);
+		output.start();
 	}
 	
 	public Map<String, String> test(String jsFile, String typesFile) {

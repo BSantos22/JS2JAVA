@@ -37,7 +37,7 @@ public class JsonReader {
                 stringBuilder.append(character);
                 intChar = bufferedReader.read();
             }
-            
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger("info").info("FileNotFoundException: " + ex.getMessage());
             return null;
