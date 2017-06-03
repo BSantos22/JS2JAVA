@@ -49,11 +49,10 @@ public class Variable {
 				type_name = s;
 				priority_status = Utils.NUMERIC.indexOf(s);
 			}
-			else if (s.contains("array")) {
+			else if (s.contains("[]")) {
 				array = 1;
-				String[] array_type_def = s.split("=");
-				String array_type = array_type_def[1];
-				
+				String array_type = s.replaceAll("\\[", "");
+				array_type = s.replaceAll("\\]", "");
 				if (!Utils.NUMERIC.contains(array_type)) {
 					type_name = s;
 				}

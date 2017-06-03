@@ -1,6 +1,9 @@
 package js2java;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -9,28 +12,49 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import utils.Utils;
+import variables.Function;
+
 public class Output {
 
 	private JsonObject inputFile;
 	private TypeInferrer varTypes;
-	private File outputFile;
-	private String outputString;
-	private Map<String, ArrayList<JsonObject>> expressions;
+	private PrintWriter outputFile;
+	private String outputFileName;
 
-
-	public Output(JsonObject js, TypeInferrer inferrer) {
+	public Output(JsonObject js, TypeInferrer inferrer, String fileName) {
 		inputFile = js;
 		varTypes = inferrer;
-
-		//File outputFile = new File("files/java output");
+		outputFileName = fileName.substring(0, 1).toUpperCase() + fileName.substring(1);
+		
+		try {
+			outputFile = new PrintWriter("output/"+outputFileName+".java", "UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
-	public File getOutputFile() { return outputFile;}
 
 	public void start() {
-		iterateJsonObj(inputFile);
+		Function global = varTypes.getFunctions().get(0);
+		function_declaration(inputFile, global);
+		
 	}
 
+	private void function_declaration(JsonObject expression, Function function) {
+		if (function.getName().equals("global")) {
+			outputFile.println("public class " + outputFileName + " {");
+		}
+		else {
+			outputFile.println("public class " + function.getName() + " {");
+		}
+		
+		
+		
+		
+		outputFile.println("}");
+	}
+	
+	/*
 	public void iterateJsonObj(JsonObject js) {
 		int i=-1;
 		for (Map.Entry<String, JsonElement> entry: js.entrySet()) {

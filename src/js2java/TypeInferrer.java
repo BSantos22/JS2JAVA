@@ -364,9 +364,9 @@ public class TypeInferrer {
 				return array_expression(expression, function);
 			case Utils.MEMBER_EXPRESSION:
 				String type = member_expression(expression, function).getType();
-				if (type.contains("array")) {
-					String[] s = type.split("=");
-					type = s[1];
+				if (type.contains("[]")) {
+					type = type.replaceAll("\\[", "");
+					type = type.replaceAll("\\]", "");
 				}
 				return type;
 			case Utils.IDENTIFIER:	
@@ -496,9 +496,9 @@ public class TypeInferrer {
 	private String variable(JsonObject argument, Function function) {
 		if (argument.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION)) {
 			String type = member_expression(argument, function).getType();
-			if (type.contains("array")) {
-				String[] s = type.split("=");
-				type = s[1];
+			if (type.contains("[]")) {
+				type = type.replaceAll("\\[", "");
+				type = type.replaceAll("\\]", "");
 			}
 			
 			if (type.equals(Utils.STRING) || type.equals(Utils.BOOLEAN) || type.equals(Utils.CHAR)) {
@@ -530,7 +530,7 @@ public class TypeInferrer {
 			temp.addType(type);
 		}
 		
-		return "array="+temp.getType();
+		return temp.getType()+"[]";
 	}
 	
 	private Variable member_expression(JsonObject expression, Function function) {

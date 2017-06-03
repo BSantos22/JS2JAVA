@@ -41,11 +41,8 @@ public class JS2Java {
 		
 		TypeInferrer inferrer = new TypeInferrer(js, vars);
 		System.out.println(inferrer.getFunctions());
-		
-		/*
-		Output output = new Output(js, inferrer);
+		Output output = new Output(js, inferrer, jsFilepath.replace(".json", ""));
 		output.start();
-		*/
 	}
 	/*
 	public Map<String, String> test(String jsFile, String typesFile) {
