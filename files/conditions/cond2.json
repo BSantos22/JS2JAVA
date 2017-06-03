@@ -2,6 +2,20 @@
     "type": "Program",
     "body": [
         {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "a"
+                    },
+                    "init": null
+                }
+            ],
+            "kind": "var"
+        },
+        {
             "type": "IfStatement",
             "test": {
                 "type": "Identifier",
@@ -9,9 +23,46 @@
             },
             "consequent": {
                 "type": "BlockStatement",
-                "body": []
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "AssignmentExpression",
+                            "operator": "=",
+                            "left": {
+                                "type": "Identifier",
+                                "name": "a"
+                            },
+                            "right": {
+                                "type": "Literal",
+                                "value": 2,
+                                "raw": "2.0"
+                            }
+                        }
+                    }
+                ]
             },
-            "alternate": null
+            "alternate": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "AssignmentExpression",
+                            "operator": "=",
+                            "left": {
+                                "type": "Identifier",
+                                "name": "a"
+                            },
+                            "right": {
+                                "type": "Literal",
+                                "value": 3,
+                                "raw": "3"
+                            }
+                        }
+                    }
+                ]
+            }
         }
     ],
     "sourceType": "script"

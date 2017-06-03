@@ -1,5 +1,15 @@
 cond1
-if (i < 10) {}
+var s = 3;
+if (i < 10) {
+	var e = 3*i;
+}
+d = e*s;
 
 cond2
-if (s) {}
+var a;
+if (s) {
+	a = 2.0;
+}
+else {
+	a = 3;
+}

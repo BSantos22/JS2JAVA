@@ -24,6 +24,7 @@ var d = e*2*2;
 dec7
 var e;
 var d = e*2*2;
+var e = 2.0;
 
 dec8
 var d = true;
@@ -31,3 +32,12 @@ var s = d && e;
 
 dec9
 var d = 7 / 6;
+
+dec10
+var a = 3, b=5;
+c = a*b, d=a/b;
+
+dec11
+var array = [3, 4, 2];
+a = b*c/array[0], b = array[0], c=9*(b++)+array[0];
+var d = !b && c;

@@ -2,6 +2,24 @@
     "type": "Program",
     "body": [
         {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "s"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 3,
+                        "raw": "3"
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
             "type": "IfStatement",
             "test": {
                 "type": "BinaryExpression",
@@ -18,9 +36,59 @@
             },
             "consequent": {
                 "type": "BlockStatement",
-                "body": []
+                "body": [
+                    {
+                        "type": "VariableDeclaration",
+                        "declarations": [
+                            {
+                                "type": "VariableDeclarator",
+                                "id": {
+                                    "type": "Identifier",
+                                    "name": "e"
+                                },
+                                "init": {
+                                    "type": "BinaryExpression",
+                                    "operator": "*",
+                                    "left": {
+                                        "type": "Literal",
+                                        "value": 3,
+                                        "raw": "3"
+                                    },
+                                    "right": {
+                                        "type": "Identifier",
+                                        "name": "i"
+                                    }
+                                }
+                            }
+                        ],
+                        "kind": "var"
+                    }
+                ]
             },
             "alternate": null
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                    "type": "Identifier",
+                    "name": "d"
+                },
+                "right": {
+                    "type": "BinaryExpression",
+                    "operator": "*",
+                    "left": {
+                        "type": "Identifier",
+                        "name": "e"
+                    },
+                    "right": {
+                        "type": "Identifier",
+                        "name": "s"
+                    }
+                }
+            }
         }
     ],
     "sourceType": "script"

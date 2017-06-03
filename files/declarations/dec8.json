@@ -8,6 +8,24 @@
                     "type": "VariableDeclarator",
                     "id": {
                         "type": "Identifier",
+                        "name": "d"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": true,
+                        "raw": "true"
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
                         "name": "s"
                     },
                     "init": {
