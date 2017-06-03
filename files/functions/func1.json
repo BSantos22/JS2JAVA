@@ -193,6 +193,23 @@
                         "kind": "var"
                     },
                     {
+                        "type": "VariableDeclaration",
+                        "declarations": [
+                            {
+                                "type": "VariableDeclarator",
+                                "id": {
+                                    "type": "Identifier",
+                                    "name": "xyz"
+                                },
+                                "init": {
+                                    "type": "Identifier",
+                                    "name": "ind"
+                                }
+                            }
+                        ],
+                        "kind": "var"
+                    },
+                    {
                         "type": "FunctionDeclaration",
                         "id": {
                             "type": "Identifier",

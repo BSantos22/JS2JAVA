@@ -24,9 +24,14 @@ public class TypeInferrer {
 		functions.add(global);
 		addDeclaredVariables(js, global);
 		inferScope(global);
-		inferTypes(js);
-		System.out.println(functions);
 		
+		String prev_variables = "";
+		String variables = "";
+		do {
+			prev_variables = variables;
+			inferTypes(js);
+			variables = functions.toString();
+		} while(!prev_variables.equals(variables));
 	}
 	
 	public ArrayList<Function> getFunctions() {
