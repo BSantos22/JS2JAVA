@@ -393,7 +393,8 @@ public class TypeInferrer {
 		}
 		else {
 			function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME).getAsString();
-		}		
+		}
+		
 		JsonArray args = expression.get(Utils.ARGUMENTS).getAsJsonArray();
 		for (JsonElement arg: args) {
 			expression(arg.getAsJsonObject(), function);
@@ -405,9 +406,7 @@ public class TypeInferrer {
 				
 				// Add type of each parameter to called function
 				for (int i = 0; i < arguments.size(); i++) {
-					String name = arguments.get(i).getAsJsonObject().get(Utils.NAME).getAsString();
-					Variable v = function.getVariable(name);
-					f.getParameter(i).addType(v.getType());
+					f.getParameter(i).addType(expression(arguments.get(i).getAsJsonObject(), function));
 				}
 				
 				return f.getReturnType();

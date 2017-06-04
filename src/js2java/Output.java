@@ -321,9 +321,19 @@ public class Output {
 		// Add type of each parameter to called function
 		for (int i = 0; i < arguments.size(); i++) {
 			if (i != 0) {
-				exp += ", ";
+				if (class_name.equals(Utils.CONSOLE) && function_name.equals(Utils.LOG)) {
+					exp += "System.out.println(";
+				}
+				else {
+					exp += ", ";
+				}
 			}
+			
 			exp += expression(arguments.get(i).getAsJsonObject(), function);
+			
+			if (i != arguments.size()-1 && class_name.equals(Utils.CONSOLE) && function_name.equals(Utils.LOG)) {
+				exp += "); ";
+			}
 		}
 		
 		exp += ")";
