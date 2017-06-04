@@ -71,9 +71,14 @@ public class TypeInferrer {
 				else if (entry.getKey().toString().equals(Utils.CALLEE)) { // ignore function calls identifiers
 					continue;
 				}
+				// Ignore array length calls
+				else if (object.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION) && entry.getKey().equals(Utils.PROPERTY) && entry.getValue().getAsJsonObject().get(Utils.NAME).getAsString().equals(Utils.LENGTH)) {
+					continue;
+				}
 				else {
 					addDeclaredVariables(object.get(entry.getKey()), function);
 				}
+				
 				
 				// Create new functions from function_declarations
 				if (type.equals(Utils.FUNCTION_DECLARATION)) {
@@ -379,6 +384,10 @@ public class TypeInferrer {
 	}
 	
 	private String call_expression(JsonObject expression, Function function) {
+		if (expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME) == null) {
+			return Utils.UNDEFINED;
+		}
+		
 		String function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME).getAsString();
 		
 		for (Function f: functions) {

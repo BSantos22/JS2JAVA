@@ -202,8 +202,16 @@
                                     "name": "xyz"
                                 },
                                 "init": {
-                                    "type": "Identifier",
-                                    "name": "ind"
+                                    "type": "MemberExpression",
+                                    "computed": false,
+                                    "object": {
+                                        "type": "Identifier",
+                                        "name": "array"
+                                    },
+                                    "property": {
+                                        "type": "Identifier",
+                                        "name": "length"
+                                    }
                                 }
                             }
                         ],
@@ -300,16 +308,40 @@
                             "type": "ArrayExpression",
                             "elements": [
                                 {
-                                    "type": "Identifier",
-                                    "name": "x"
+                                    "type": "BinaryExpression",
+                                    "operator": "*",
+                                    "left": {
+                                        "type": "Identifier",
+                                        "name": "x"
+                                    },
+                                    "right": {
+                                        "type": "Identifier",
+                                        "name": "xyz"
+                                    }
                                 },
                                 {
-                                    "type": "Identifier",
-                                    "name": "y"
+                                    "type": "BinaryExpression",
+                                    "operator": "*",
+                                    "left": {
+                                        "type": "Identifier",
+                                        "name": "y"
+                                    },
+                                    "right": {
+                                        "type": "Identifier",
+                                        "name": "xyz"
+                                    }
                                 },
                                 {
-                                    "type": "Identifier",
-                                    "name": "z"
+                                    "type": "BinaryExpression",
+                                    "operator": "*",
+                                    "left": {
+                                        "type": "Identifier",
+                                        "name": "z"
+                                    },
+                                    "right": {
+                                        "type": "Identifier",
+                                        "name": "xyz"
+                                    }
                                 }
                             ]
                         }
@@ -375,17 +407,34 @@
             "expression": {
                 "type": "CallExpression",
                 "callee": {
-                    "type": "Identifier",
-                    "name": "a"
+                    "type": "MemberExpression",
+                    "computed": false,
+                    "object": {
+                        "type": "Identifier",
+                        "name": "console"
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "name": "log"
+                    }
                 },
                 "arguments": [
                     {
-                        "type": "Identifier",
-                        "name": "x"
-                    },
-                    {
-                        "type": "Identifier",
-                        "name": "y"
+                        "type": "CallExpression",
+                        "callee": {
+                            "type": "Identifier",
+                            "name": "a"
+                        },
+                        "arguments": [
+                            {
+                                "type": "Identifier",
+                                "name": "x"
+                            },
+                            {
+                                "type": "Identifier",
+                                "name": "y"
+                            }
+                        ]
                     }
                 ]
             }

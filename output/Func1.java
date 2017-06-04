@@ -9,7 +9,7 @@ public class Func1 {
 		y = 6;
 		z = 2;
 		array = {4, 2, 1, 3};
-		A.a(x, y);
+		System.out.println(A.a(x, y));
 	}
 	public static class A {
 		public static int x;
@@ -21,11 +21,11 @@ public class Func1 {
 			x = (3) * (array[ind]);
 			y = (2) * (array[ind]);
 			abc = 2;
-			xyz = ind;
+			xyz = array.length;
 			if (bool) {
 				return B.b();
 			}
-			return {x, y, z};
+			return {(x) * (xyz), (y) * (xyz), (z) * (xyz)};
 		}
 		public static class B {
 			public static int x;

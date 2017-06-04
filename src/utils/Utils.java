@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Utils {
+	// JS functions
+	public static final String CONSOLE = "console";
+	public static final String LENGTH = "length";
+	public static final String LOG = "log";
+	
 	// Common types
 	public static final String STRING = "string";
 	public static final String BOOLEAN = "boolean";

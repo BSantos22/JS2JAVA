@@ -1,12 +1,7 @@
 package js2java;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -281,21 +276,33 @@ public class Output {
 	}
 	
 	private String call_expression(JsonObject expression, Function function) {
-		String function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME).getAsString();
-		String class_name = function_name.substring(0, 1).toUpperCase() + function_name.substring(1);
+		String function_name, class_name;
 		
-		String exp = "";		
-		exp += class_name + "." + function_name;
+		if (expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION)) {
+			function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME).getAsString();
+			class_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.OBJECT).getAsJsonObject().get(Utils.NAME).getAsString();
+		}
+		else {
+			function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME).getAsString();
+			class_name = function_name.substring(0, 1).toUpperCase() + function_name.substring(1);
+		}
+		
+		String exp = "";
+		if (class_name.equals(Utils.CONSOLE) && function_name.equals(Utils.LOG)) {
+			exp += "System.out.println(";
+		}
+		else {
+			exp += class_name + "." + function_name + "(";
+		}
+		
 		JsonArray arguments = expression.get(Utils.ARGUMENTS).getAsJsonArray();
-		
-		exp += "(";
 		
 		// Add type of each parameter to called function
 		for (int i = 0; i < arguments.size(); i++) {
 			if (i != 0) {
 				exp += ", ";
 			}
-			exp += arguments.get(i).getAsJsonObject().get(Utils.NAME).getAsString();
+			exp += expression(arguments.get(i).getAsJsonObject(), function);
 		}
 		
 		exp += ")";
@@ -393,9 +400,15 @@ public class Output {
 	
 	private String member_expression(JsonObject expression, Function function) {
 		String exp = expression.get(Utils.OBJECT).getAsJsonObject().get(Utils.NAME).getAsString();
-		exp += "[";
-		exp += expression(expression.get(Utils.PROPERTY).getAsJsonObject(), function);
-		exp += "]";
+		if (expression.get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME).getAsString().equals(Utils.LENGTH)) {
+			exp += ".length";
+		}
+		else {
+			exp += "[";
+			exp += expression(expression.get(Utils.PROPERTY).getAsJsonObject(), function);
+			exp += "]";
+		}
+		
 		return exp;
 	}
 	
