@@ -159,7 +159,13 @@ public class Output {
 					Variable var = function.getVariable(var_name);
 					
 					JsonObject init = (JsonObject) dec.get(Utils.INIT);
-					s += var.getName() + " = " + expression(init, function);
+					
+					if(((JsonObject) init).get(Utils.TYPE).getAsString().equals(Utils.ARRAY_EXPRESSION)) {
+						s += varTypes.array_expression(init, function) + " " + var.getName() + " = " + expression(init, function);
+					}
+					else 
+						s += var.getName() + " = " + expression(init, function);
+					
 					if (print) {
 						s += ";\n";
 					}
@@ -312,6 +318,11 @@ public class Output {
 		if (class_name.equals(Utils.CONSOLE) && function_name.equals(Utils.LOG)) {
 			exp += "System.out.println(";
 		}
+		
+		else if (function_name.equals(Utils.PUSH)) {
+			exp += class_name + "." + "add" + "(";
+		}
+		
 		else {
 			exp += class_name + "." + function_name + "(";
 		}
