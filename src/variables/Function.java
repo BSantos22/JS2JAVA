@@ -60,31 +60,43 @@ public class Function {
 	
 	// Get actual type the return is going to be
 	public String getReturnType() {
-		boolean number = false, bool = false, str = false, ch = false;
+		int number = 0, bool = 0, str = 0, ch = 0, array = 0;
 		
 		String type_name = Utils.UNDEFINED;
 		int priority_status = -1;
 		for (String s: returns) {
 			if (s.equals(Utils.STRING)) {
-				str = true;
+				str = 1;
 				type_name = s;
 			}
 			else if (s.equals(Utils.BOOLEAN)) {
-				bool = true;
+				bool = 1;
 				type_name = s;
 			}
 			else if (s.equals(Utils.CHAR)) {
-				ch = true;
+				ch = 1;
 				type_name = s;
-			}
+			}			
 			else if (Utils.NUMERIC.contains(s) && Utils.NUMERIC.indexOf(s) > priority_status) {
-				number = true;
+				number = 1;
 				type_name = s;
 				priority_status = Utils.NUMERIC.indexOf(s);
 			}
+			else if (s.contains("[]")) {
+				array = 1;
+				String array_type = s.replaceAll("\\[", "");
+				array_type = s.replaceAll("\\]", "");
+				if (!Utils.NUMERIC.contains(array_type)) {
+					type_name = s;
+				}
+				else if (Utils.NUMERIC.contains(array_type) && Utils.NUMERIC.indexOf(array_type) > priority_status) {
+					type_name = s;
+					priority_status = Utils.NUMERIC.indexOf(s);
+				}
+			}
 		}
 		
-		if ((number && bool) || (number && str) || (str && bool) || (ch && bool) || (ch && str) || (ch && number)) {
+		if (number + bool + str + ch + array> 1) {
 			return Utils.DYNAMIC;
 		}
 		else {

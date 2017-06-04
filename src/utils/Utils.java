@@ -61,6 +61,7 @@ public class Utils {
 	public static final String ALTERNATE = "alternate";
 	public static final String UPDATE = "update";
 	public static final String ARGUMENTS = "arguments";
+	public static final String PROPERTY = "property";
 	
 	public static final String IDENTIFIER = "Identifier";
 	public static final String LITERAL = "Literal";
