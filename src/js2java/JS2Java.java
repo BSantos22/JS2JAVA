@@ -11,12 +11,21 @@ public class JS2Java {
 	public static void main(String args[]) {
 		String varsFilepath;
 		String jsFilepath;
+		String dir,dir2;
 		
 		if (args.length != 2) {
 			Scanner reader = new Scanner(System.in);
 			System.out.println("Javascript code file name: ");
 			jsFilepath = reader.nextLine();
 			jsFilepath += ".json";
+			dir = checkFileDirectory(jsFilepath);
+			while(dir == "") {
+				System.out.println("\nCouldn't find given JavaScript code file, try again");
+				System.out.println("Javascript code file name: ");
+				jsFilepath = reader.nextLine();
+				jsFilepath += ".json";
+				dir = checkFileDirectory(jsFilepath);
+			}
 			System.out.println("Variable types file name: ");
 			varsFilepath = reader.nextLine();
 			reader.close();
@@ -26,11 +35,9 @@ public class JS2Java {
 			varsFilepath = args[1];
 		}
 		
-		String dir = checkFileDirectory(jsFilepath);
-		if(dir == "") {
-			System.out.println("\nCouldn't find such a file");
-			return;
-		}
+		dir = checkFileDirectory(jsFilepath);
+		
+		
 		
 		File jsFile = new File(dir + "/" + jsFilepath);
 		JsonReader parser = new JsonReader();
