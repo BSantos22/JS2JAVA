@@ -51,7 +51,7 @@ public class Output {
 		ArrayList<JsonObject> nestedFunctions;
 		if (function.getName().equals("global")) {
 			println("", 0);
-			println("public static void main(String[] args) {", ind+1);
+			println("public static void main(String args[]) {", ind+1);
 			nestedFunctions = processFunction(expression.get(Utils.BODY).getAsJsonArray(), function, ind+2);
 		}
 		else {
@@ -338,14 +338,12 @@ public class Output {
 	}
 	
 	private String logical_expression(JsonObject expression, Function function) {
-		String exp = "(";
 		String operator = expression.get(Utils.OPERATOR).getAsString();		
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		exp += expression(left, function);
-		exp += ") " + operator + " (";
+		String exp = expression(left, function);
+		exp += " " + operator + " ";
 		exp += expression(right, function);
-		exp += ")";
 		
 		return exp;
 	}
@@ -353,7 +351,7 @@ public class Output {
 	private String unary_expression(JsonObject expression, Function function) {
 		String exp = expression.get(Utils.OPERATOR).getAsString();
 		JsonObject argument = (JsonObject) expression.get(Utils.ARGUMENT);
-		exp += variable(argument, function);
+		exp += expression(argument, function);
 		return exp;
 	}
 
@@ -365,14 +363,12 @@ public class Output {
 	}
 	
 	private String binary_expression(JsonObject expression, Function function) {
-		String exp = "(";
 		String operator = expression.get(Utils.OPERATOR).getAsString();		
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		exp += expression(left, function);
-		exp += ") " + operator + " (";
+		String exp = expression(left, function);
+		exp += " " + operator + " ";
 		exp += expression(right, function);
-		exp += ")";
 		
 		return exp;
 	}
@@ -389,12 +385,12 @@ public class Output {
 	}
 	
 	private String array_expression(JsonObject expression, Function function) {
-		String exp = "{";
+		String  exp = "{";
 		
 		JsonArray elements = expression.get(Utils.ELEMENTS).getAsJsonArray();
 		for (int i = 0; i < elements.size(); i++) {
 			JsonObject o = elements.get(i).getAsJsonObject();
-		
+			
 			if (i != 0) {
 				exp += ", " + expression(o, function);
 			}
@@ -404,6 +400,7 @@ public class Output {
 		}
 		
 		exp += "}";
+		//exp = "new " + type + exp;
 		
 		return exp;
 	}

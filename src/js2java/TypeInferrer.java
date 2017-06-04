@@ -222,7 +222,7 @@ public class TypeInferrer {
 		}
 	}
 	
-	private void variable_declaration(JsonObject expression, Function function) {
+	private String variable_declaration(JsonObject expression, Function function) {
 		JsonArray declarations = expression.get(Utils.DECLARATIONS).getAsJsonArray();
 		
 		for (JsonElement declaration: declarations) {
@@ -250,6 +250,7 @@ public class TypeInferrer {
 			}	
 		}
 		
+		return Utils.UNDEFINED;
 	}
 	
 	private void if_statement(JsonObject expression, Function function) {
@@ -353,6 +354,8 @@ public class TypeInferrer {
 	
 	private String expression(JsonObject expression, Function function) {
 		switch (((JsonObject) expression).get(Utils.TYPE).getAsString()) {
+			case Utils.VARIABLE_DECLARATION:
+				return variable_declaration(expression, function);
 			case Utils.CALL_EXPRESSION:
 				return call_expression(expression, function);
 			case Utils.ASSIGNMENT_EXPRESSION:
@@ -438,8 +441,12 @@ public class TypeInferrer {
 	
 	private String unary_expression(JsonObject expression, Function function) {
 		String operator = expression.get(Utils.OPERATOR).getAsString();
+		JsonObject argument = expression.get(Utils.ARGUMENT).getAsJsonObject();
 		if (operator.equals(Utils.OP_EXC)) {
 			return Utils.BOOLEAN;
+		}
+		else if (operator.equals(Utils.OP_DIF)) {
+			return expression(argument, function);
 		}
 		
 		return Utils.UNDEFINED;

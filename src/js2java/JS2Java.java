@@ -40,7 +40,7 @@ public class JS2Java {
 		JsonObject vars = parser.parse(varsFile);
 		
 		TypeInferrer inferrer = new TypeInferrer(js, vars);
-		//System.out.println(inferrer.getFunctions());
+		System.out.println(inferrer.getFunctions());
 		Output output = new Output(js, inferrer, jsFilepath.replace(".json", ""));
 		output.start();
 	}
