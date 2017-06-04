@@ -56,8 +56,18 @@ public class Output {
 		}
 		else {
 			println("", 0);
-			// add params
-			println("public static " + function.getReturnType() + " " + function.getName() + "(" + ") {", ind+1);
+			String parameters = "";
+			for (int i = 0; i < function.getParameters().size(); i++) {
+				Variable param = function.getParameters().get(i);
+				
+				if (i != 0) {
+					parameters += ", ";
+				}
+				
+				parameters += param.getType() + " " + param.getName();
+			}
+			
+			println("public static " + function.getReturnType() + " " + function.getName() + "(" + parameters + ") {", ind+1);
 			nestedFunctions = processFunction(expression.get(Utils.BODY).getAsJsonObject().get(Utils.BODY).getAsJsonArray(), function, ind+2);
 		}
 		

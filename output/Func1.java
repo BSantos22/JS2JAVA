@@ -17,7 +17,7 @@ public class Func1 {
 		public static int abc;
 		public static int xyz;
 
-		public static int[] a() {
+		public static int[] a(int bool, int ind) {
 			x = (3) * (array[ind]);
 			y = (2) * (array[ind]);
 			abc = 2;

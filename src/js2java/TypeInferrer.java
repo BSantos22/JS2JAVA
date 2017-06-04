@@ -384,11 +384,17 @@ public class TypeInferrer {
 	}
 	
 	private String call_expression(JsonObject expression, Function function) {
+		String function_name;
 		if (expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME) == null) {
-			return Utils.UNDEFINED;
+			function_name = "";
 		}
-		
-		String function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME).getAsString();
+		else {
+			function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME).getAsString();
+		}		
+		JsonArray args = expression.get(Utils.ARGUMENTS).getAsJsonArray();
+		for (JsonElement arg: args) {
+			expression(arg.getAsJsonObject(), function);
+		}
 		
 		for (Function f: functions) {
 			if (f.getName().equals(function_name)) {
