@@ -103,7 +103,7 @@ public class Output {
 					expression_statement((JsonObject) expression, function, ind);
 					break;
 				case Utils.VARIABLE_DECLARATION:
-					variable_declaration((JsonObject) expression, function, ind);
+					variable_declaration((JsonObject) expression, function, ind, true);
 					break;
 				case Utils.IF_STATEMENT:
 					if_statement((JsonObject) expression, function, ind, false);
@@ -145,8 +145,9 @@ public class Output {
 		}
 	}	
 	
-	private void variable_declaration(JsonObject expression, Function function, int ind) {
+	private String variable_declaration(JsonObject expression, Function function, int ind, boolean print) {
 		JsonArray declarations = expression.get(Utils.DECLARATIONS).getAsJsonArray();
+		String s = "";
 		
 		for (int i = 0; i < declarations.size(); i++) {
 			JsonObject dec = declarations.get(i).getAsJsonObject();
@@ -158,11 +159,19 @@ public class Output {
 					Variable var = function.getVariable(var_name);
 					
 					JsonObject init = (JsonObject) dec.get(Utils.INIT);
-					
-					println(var.getName() + " = " + expression(init, function) + ";", ind);
+					s += var.getName() + " = " + expression(init, function);
+					if (print) {
+						s += ";\n";
+					}
 				}
 			}
 		}
+		
+		if (print) {
+			println(s, ind);
+		}
+		
+		return s;	
 	}
 	
 	private void if_statement(JsonObject expression, Function function, int ind, boolean elseif) {
@@ -260,6 +269,8 @@ public class Output {
 	
 	private String expression(JsonObject expression, Function function) {
 		switch (((JsonObject) expression).get(Utils.TYPE).getAsString()) {
+			case Utils.VARIABLE_DECLARATION:
+				return variable_declaration(expression, function, 0, false);
 			case Utils.CALL_EXPRESSION:
 				return call_expression(expression, function);
 			case Utils.ASSIGNMENT_EXPRESSION:
