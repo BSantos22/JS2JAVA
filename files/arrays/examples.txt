@@ -15,7 +15,3 @@ var e = a[3];
 array4
 var d = [1, 2, 3, 4, 5];
 var e = d[f];
-
-array5
-var d = [1, 2, 3, 4, 5];
-d.push(6);

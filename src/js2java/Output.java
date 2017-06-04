@@ -406,24 +406,22 @@ public class Output {
 	}
 	
 	private String array_expression(JsonObject expression, Function function) {
-		String array_form = varTypes.array_expression(expression, function);
-		String exp;
-		String  elems = "(Arrays.asList(";
+		String  exp = "{";
 		
 		JsonArray elements = expression.get(Utils.ELEMENTS).getAsJsonArray();
 		for (int i = 0; i < elements.size(); i++) {
 			JsonObject o = elements.get(i).getAsJsonObject();
 			
 			if (i != 0) {
-				elems += ", " + expression(o, function);
+				exp += ", " + expression(o, function);
 			}
 			else {
-				elems += expression(o, function);
+				exp += expression(o, function);
 			}
 		}
 		
-		elems += "))";
-		exp = "new " + array_form + elems;
+		exp += "}";
+		exp = "new " + varTypes.array_expression(expression, function) + exp;
 		
 		return exp;
 	}

@@ -550,14 +550,8 @@ public class TypeInferrer {
 			String type = expression(o, function);
 			temp.addType(type);
 		}
-		String type;
 		
-		if(temp.getType() == "int")
-			type = "Integer";
-		else
-			type = temp.getType();
-		
-		return "ArrayList<" + type + ">";
+		return temp.getType()+"[]";
 	}
 	
 	private Variable member_expression(JsonObject expression, Function function) {
