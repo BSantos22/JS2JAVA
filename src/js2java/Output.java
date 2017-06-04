@@ -411,7 +411,7 @@ public class Output {
 		}
 		
 		exp += "}";
-		//exp = "new " + type + exp;
+		exp = "new " + varTypes.array_expression(expression, function) + exp;
 		
 		return exp;
 	}

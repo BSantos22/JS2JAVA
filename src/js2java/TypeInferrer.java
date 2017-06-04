@@ -543,7 +543,7 @@ public class TypeInferrer {
 		return Utils.UNDEFINED;
 	}
 	
-	private String array_expression(JsonObject expression, Function function) {
+	public String array_expression(JsonObject expression, Function function) {
 		JsonArray elements = expression.get(Utils.ELEMENTS).getAsJsonArray();
 		Variable temp = new Variable("temp");
 		for (JsonElement e: elements) {
