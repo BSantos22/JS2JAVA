@@ -134,10 +134,38 @@ public class Function {
 	
 	// Utils
 	public String toString() {
-		String s = name + "\n";
-		s += "Declared: " + declared + "\n";
-		s += "Used: " + used + "\n";
-		s += "Param: " + parameters + "\n";
+		String s = "";
+		if (name.equals("global")) {
+			s += "main\n";
+		}
+		else {
+			s += name + "\n";
+		}
+		s += "Parameters:\n";
+		ArrayList<Integer> dup = new ArrayList<Integer>();
+		for (Variable v: parameters) {
+			if (!dup.contains(v.getID())) {
+				s += v.toString() + "\n";
+				dup.add(v.getID());
+			}
+		}
+		s += "Declared:\n";
+		dup = new ArrayList<Integer>();
+		for (Variable v: declared) {
+			if (!dup.contains(v.getID())) {
+				s += v.toString() + "\n";
+				dup.add(v.getID());
+			}
+		}
+		s += "Used:\n";
+		dup = new ArrayList<Integer>();
+		for (Variable v: used) {
+			if (!dup.contains(v.getID())) {
+				s += v.toString() + "\n";
+				dup.add(v.getID());
+			}
+		}
+		
 		return s;
 	}
 }

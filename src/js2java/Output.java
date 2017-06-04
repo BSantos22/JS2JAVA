@@ -24,13 +24,23 @@ public class Output {
 		outputFileName = fileName.substring(0, 1).toUpperCase() + fileName.substring(1);
 		
 		try {
-			outputFile = new PrintWriter("output/"+outputFileName+".java", "UTF-8");
+			outputFile = new PrintWriter("src/output/"+outputFileName+".java", "UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void start() {
+	public void start(String jsCode) {
+		if (jsCode != null) {
+			println("/*", 0);
+			println("JS code", 0);
+			println("", 0);
+			println(jsCode, 0);		
+			println("*/", 0);
+		}
+		println("", 0);
+		println("package output;", 0);
+		println("", 0);
 		Function global = varTypes.getFunctions().get(0);
 		function_declaration(inputFile, global, 0);
 		outputFile.close();
@@ -45,7 +55,12 @@ public class Output {
 		}
 		
 		for (Variable v: function.getDeclared()) {
-			println("public static " + v.getType() + " " + v.getName() + ";", ind+1);
+			String type = v.getType();
+			if (v.getType().equals(Utils.STRING)) {
+				type = "String";
+			}
+			
+			println("public static " + type + " " + v.getName() + ";", ind+1);
 		}
 		
 		ArrayList<JsonObject> nestedFunctions;
@@ -161,7 +176,7 @@ public class Output {
 					JsonObject init = (JsonObject) dec.get(Utils.INIT);
 					s += var.getName() + " = " + expression(init, function);
 					if (print) {
-						s += ";\n";
+						s += ";";
 					}
 				}
 			}
@@ -362,9 +377,9 @@ public class Output {
 		String operator = expression.get(Utils.OPERATOR).getAsString();		
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		String exp = expression(left, function);
+		String exp = "(" + expression(left, function);
 		exp += " " + operator + " ";
-		exp += expression(right, function);
+		exp += expression(right, function) + ")";
 		
 		return exp;
 	}
@@ -387,9 +402,9 @@ public class Output {
 		String operator = expression.get(Utils.OPERATOR).getAsString();		
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		String exp = expression(left, function);
+		String exp = "(" + expression(left, function);
 		exp += " " + operator + " ";
-		exp += expression(right, function);
+		exp += expression(right, function) + ")";
 		
 		return exp;
 	}

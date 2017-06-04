@@ -24,6 +24,7 @@ public class TypeInferrer {
 		functions.add(global);
 		addDeclaredVariables(js, global);
 		inferScope(global);
+		addDeclaredTypes();
 		
 		String prev_variables = "";
 		String variables = "";
@@ -31,7 +32,17 @@ public class TypeInferrer {
 			prev_variables = variables;
 			inferTypes(js);
 			variables = functions.toString();
-		} while(!prev_variables.equals(variables));
+		} while (!prev_variables.equals(variables));
+		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("Variable types");
+		System.out.println("--------------");
+		for (Function f: functions) {
+			System.out.println("");
+			System.out.println(f);
+		}
+		
 	}
 	
 	public ArrayList<Function> getFunctions() {
@@ -41,6 +52,10 @@ public class TypeInferrer {
 	// Adds variables in type definition file to defined
 	// Ignores variables of invalid type
 	public void addTypeDef(JsonObject vars) {
+		if (vars == null) {
+			return;
+		}
+		
 		JsonArray a = (JsonArray) vars.get(Utils.VARS);
 		for (int i = 0; i < a.size(); i++) {
 			String name = ((JsonObject) a.get(i)).get(Utils.NAME).getAsString();
@@ -164,6 +179,24 @@ public class TypeInferrer {
 		}
 	}
 
+	// Add types declared in the types json
+	public void addDeclaredTypes() {
+		for (Function f: functions) {
+			ArrayList<Variable> allVariables = new ArrayList<Variable>();
+			allVariables.addAll(f.getDeclared());
+			allVariables.addAll(f.getUsed());
+			allVariables.addAll(f.getParameters());
+			
+			for (Variable v: allVariables) {
+				for (Variable d: defined) {
+					if (d.equals(v)) {
+						v.addType(d.getType());
+					}
+				}
+			}
+		}
+	}
+	
 	// Infer types for each use of a variable
 	public void inferTypes(JsonObject js) {		
 		if (js.get(Utils.TYPE).getAsString().equals(Utils.PROGRAM)) {
@@ -477,7 +510,7 @@ public class TypeInferrer {
 		int priority2 = Utils.NUMERIC.indexOf(type2);
 		if (priority1 != -1 && priority2 != -1) {
 			if (operator.equals(Utils.OP_DIV)) {
-				if (!type1.equals(Utils.DOUBLE) && !type2.equals(Utils.DOUBLE)) {
+				if (!type1.equals(Utils.DOUBLE) && !type2.equals(Utils.DOUBLE) && !type1.equals(Utils.LONG) && !type2.equals(Utils.LONG)) {
 					return Utils.FLOAT;					
 				}
 				else {

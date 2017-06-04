@@ -22,8 +22,8 @@ public class Variable {
 	
 	// Get
 	public String getName() { return name; }
-	
 	public ArrayList<String> getTypes() { return type; }
+	public int getID() { return id; }
 	
 	// Get actual type this variable is going to be
 	public String getType() {
@@ -76,7 +76,7 @@ public class Variable {
 	public void addType(String type) { this.type.add(type); }
 	
 	// Utils
-	public String toString() { return name + "(" + getType() + ")" + "-" + id; }
+	public String toString() { return "- " + id + " - " + name + " - " + getType(); }
 	@Override
     public boolean equals(Object o) {
         if (o == this) {
