@@ -127,7 +127,7 @@ public class JS2Java {
 			allVariables.addAll(f.getParameters());
 			
 			for (Variable v: allVariables) {
-				if (v.getType().equals(Utils.UNDEFINED)) {
+				if (v.getType().equals(Utils.UNDEFINED) || v.getType().equals(Utils.AMBIGUOUS)) {
 					String function_name;
 					if (f.getName().equals("global")) {
 						function_name = "main";
@@ -136,7 +136,7 @@ public class JS2Java {
 						function_name = v.getName();
 					}
 					
-					System.err.println("Error: variable \"" + v.getName() + "\" in function \"" + function_name + "\" is undefined");
+					System.err.println("Error: variable \"" + v.getName() + "\" in function \"" + function_name + "\" is " + v.getType());
 					valid = false;
 				}
 			}

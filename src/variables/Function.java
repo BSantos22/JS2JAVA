@@ -97,7 +97,7 @@ public class Function {
 		}
 		
 		if (number + bool + str + ch + array> 1) {
-			return Utils.DYNAMIC;
+			return Utils.AMBIGUOUS;
 		}
 		else {
 			return type_name;

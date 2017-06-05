@@ -28,7 +28,7 @@ public class Utils {
 	public static final String CHAR = "char";
 	public static final ArrayList<String> NUMERIC = new ArrayList<String>(Arrays.asList(BYTE, SHORT, INT, LONG, FLOAT, DOUBLE));
 	
-	public static final String DYNAMIC = "Dynamic";
+	public static final String AMBIGUOUS = "ambiguous";
 	
 	// Check Java valid type
 	public static boolean isValidType(String s) {
