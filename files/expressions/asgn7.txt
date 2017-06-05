@@ -1,0 +1,7 @@
+var a = -4*3;
+var b = -a*2;
+var c = -b-a;
+var d = -(a*b+c)+20;
+var e = -(true);
+var f = e*a;
+console.log(a, b, c, d, e, f);

@@ -520,11 +520,12 @@ public class TypeInferrer {
 	private String unary_expression(JsonObject expression, Function function) {
 		String operator = expression.get(Utils.OPERATOR).getAsString();
 		JsonObject argument = expression.get(Utils.ARGUMENT).getAsJsonObject();
+		String type = expression(argument, function);
 		if (operator.equals(Utils.OP_NOT)) {
 			return Utils.BOOLEAN;
 		}
 		else if (operator.equals(Utils.OP_DIF)) {
-			return expression(argument, function);
+			return Utils.BYTE;
 		}
 		
 		return Utils.UNDEFINED;
