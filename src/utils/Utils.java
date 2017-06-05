@@ -95,7 +95,7 @@ public class Utils {
 	public static final String BINARY_EXPRESSION = "BinaryExpression";
 	
 	// AST OPERATORS
-	public static final String OP_EXC = "!";
+	public static final String OP_NOT = "!";
 	public static final String OP_INC = "++";
 	public static final String OP_DEC = "--";
 	public static final String OP_EQ = "==";

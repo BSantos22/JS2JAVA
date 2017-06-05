@@ -64,7 +64,7 @@ public class Variable {
 		}
 		
 		if (number + bool + str + ch + array> 1) {
-			return Utils.DYNAMIC;
+			return Utils.UNDEFINED;
 		}
 		else {
 			return type_name;

@@ -1,0 +1,7 @@
+// When are booleans considered numbers?
+var a = 5 + true;
+var b = 5 + false;
+var c = 5 * true;
+var d = 5 / true;
+var e = true + true;
+console.log(a, b, c, d, e);
