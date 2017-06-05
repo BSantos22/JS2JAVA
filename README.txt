@@ -1,16 +1,16 @@
 **PROJECT TITLE: JS2JAVA: A compiler to translate a subset of JavaScript to Java
 **GROUP: G16
-NAME1: Bruno Santos, NR1: 201402962, GRADE1: <0 to 20 value>, CONTRIBUTION1: 33%
-NAME2: Frederico Rocha, NR2: 201408030,  GRADE2: <0 to 20 value>, CONTRIBUTION2: 33%
-NAME3: José Costa, NR3: 201402717, GRADE3: <0 to 20 value>, CONTRIBUTION1: 33%
+NAME1: Bruno Santos, NR1: 201402962, GRADE1: <0 to 20 values>, CONTRIBUTION1: 33%
+NAME2: Frederico Rocha, NR2: 201408030,  GRADE2: <0 to 20 values>, CONTRIBUTION2: 33%
+NAME3: JosÃ© Costa, NR3: 201402717, GRADE3: <0 to 20 values>, CONTRIBUTION1: 33%
  
 **SUMMARY:
 This project generates Java code from a subset of JavaScript. 
-The input is the AST of the JavaScript code and the output is Java. 
+The input is the AST of the JavaScript code and the output is its corresponding Java code. 
 The Javascript code consists of one or more functions and global variables. 
 The framework infers the types of the variables used based on the provided code.
-uses an input JSON file describing the types of the variables used in the input Javascript code. 
-Besides the code generated the framework outputs the type considered for each variable in the Javascript code.
+It uses an input JSON file describing the types of the variables used in the Javascript code. 
+Besides the code generated, the framework outputs the type considered for each variable in the Javascript code.
 
 **EXECUTE:
 After compiling the source code run JS2Java with the arguments <ast_file_name> <types_file_name>.
