@@ -45,6 +45,30 @@
                         "value": 4,
                         "raw": "4"
                     }
+                },
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "d"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": "abc",
+                        "raw": "\"abc\""
+                    }
+                },
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "e"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": false,
+                        "raw": "false"
+                    }
                 }
             ],
             "kind": "var"
@@ -77,6 +101,14 @@
                     {
                         "type": "Identifier",
                         "name": "c"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "d"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "e"
                     }
                 ]
             }

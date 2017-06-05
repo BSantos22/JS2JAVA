@@ -1,0 +1,147 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "a"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": true,
+                        "raw": "true"
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Identifier",
+                "name": "a"
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "if",
+                                    "raw": "\"if\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "b"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": false,
+                        "raw": "false"
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Identifier",
+                "name": "b"
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "---",
+                                    "raw": "\"---\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "else",
+                                    "raw": "\"else\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "sourceType": "script"
+}

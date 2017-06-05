@@ -1,0 +1,12 @@
+var a = true;
+if (a) {
+	console.log("if");
+}
+
+var b = false;
+if (b) {
+	console.log("---");
+}
+else {
+	console.log("else");
+}

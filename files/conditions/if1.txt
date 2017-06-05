@@ -1,0 +1,21 @@
+var a = 3;
+if (a < 5) {
+	console.log("if");
+}
+
+if (a > 5) {
+	console.log("---");
+}
+else {
+	console.log("else");
+}
+
+if (a == 5) {
+	console.log("---");
+}
+else if (a < 5) {
+	console.log("else if");
+}
+else {
+	console.log("---");
+}
