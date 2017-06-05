@@ -21,6 +21,7 @@ public class JS2Java {
 		String varsFilepath;
 		String jsFilepath;
 		String txtFilepath;
+		String dir, dir2;
 		
 		if (args.length == 2) {
 			jsFilepath = args[0];
@@ -40,16 +41,20 @@ public class JS2Java {
 			jsFilepath = reader.nextLine();
 			txtFilepath = jsFilepath + ".txt";
 			jsFilepath += ".json";
+			dir = checkFileDirectory(jsFilepath);
+			while(dir == "") {
+				System.out.println("\nCouldn't find given JavaScript code file, try again");
+				System.out.println("Javascript code file name: ");
+				jsFilepath = reader.nextLine();
+				jsFilepath += ".json";
+				dir = checkFileDirectory(jsFilepath);
+			}
 			System.out.println("Variable types file name: ");
 			varsFilepath = reader.nextLine() + ".json";
 			reader.close();
 		}
 		
-		String dir = checkFileDirectory(jsFilepath);
-		if(dir == "") {
-			System.err.println("Javascript file not found.");
-			return;
-		}
+		dir = checkFileDirectory(jsFilepath);
 		
 		File jsFile = new File(dir + "/" + jsFilepath);
 		JsonReader parser = new JsonReader();
