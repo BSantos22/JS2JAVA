@@ -3,8 +3,8 @@ for (var i = 0; i < 5; i++) {
 	array.push(i);
 }
 
-for (j = 0; j < array.length; i++) {
-	array[i] = array[i]*5;
+for (j = 0; j < array.length; j++) {
+	array[j] = array[j]*5;
 }
 
 console.log(array);

@@ -338,6 +338,7 @@ public class Output {
 		}
 		
 		if (type.equals(Utils.BOOLEAN)) {
+			System.out.println(expressionType + " - " + expression);
 			if (expressionType.equals(Utils.STRING)) {
 				t = "(" + t + ".equals(\"\") ? false: true" + ")";
 			}

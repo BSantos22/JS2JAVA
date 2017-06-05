@@ -510,6 +510,10 @@ public class TypeInferrer {
 	}
 	
 	private String logical_expression(JsonObject expression, Function function) {
+		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
+		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
+		expression(left, function);
+		expression(right, function);
 		return Utils.BOOLEAN;
 	}
 	

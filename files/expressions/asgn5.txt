@@ -1,0 +1,2 @@
+var b = (false || 1) && "1";
+console.log(b);

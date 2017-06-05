@@ -2,19 +2,21 @@
     "type": "Program",
     "body": [
         {
-            "type": "ExpressionStatement",
-            "expression": {
-                "type": "AssignmentExpression",
-                "operator": "=",
-                "left": {
-                    "type": "Identifier",
-                    "name": "array"
-                },
-                "right": {
-                    "type": "ArrayExpression",
-                    "elements": []
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "array"
+                    },
+                    "init": {
+                        "type": "ArrayExpression",
+                        "elements": []
+                    }
                 }
-            }
+            ],
+            "kind": "var"
         },
         {
             "type": "ForStatement",
@@ -128,7 +130,7 @@
                 "operator": "++",
                 "argument": {
                     "type": "Identifier",
-                    "name": "i"
+                    "name": "j"
                 },
                 "prefix": false
             },
@@ -149,7 +151,7 @@
                                 },
                                 "property": {
                                     "type": "Identifier",
-                                    "name": "i"
+                                    "name": "j"
                                 }
                             },
                             "right": {
@@ -164,7 +166,7 @@
                                     },
                                     "property": {
                                         "type": "Identifier",
-                                        "name": "i"
+                                        "name": "j"
                                     }
                                 },
                                 "right": {

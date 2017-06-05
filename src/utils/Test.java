@@ -7,11 +7,10 @@ public class Test {
 		int DECL_MAX = 1;
 		int IF_MAX = 4;
 		int LOOP_MAX = 3;
-		int ASGN_MAX = 4;
+		int ASGN_MAX = 5;
 		int CONV_MAX = 5;
 		int ARRAY_MAX = 3;
 		
-		/*
 		// Declarations and types
 		for (int i = 1; i <= DECL_MAX; i++) {
 			String[] s = {"decl" + i};
@@ -25,14 +24,14 @@ public class Test {
 			JS2Java.main(s);
 			System.out.println("for If"+i);
 		}
-		*/
+		
 		// Loops
 		for (int i = 1; i <= LOOP_MAX; i++) {
 			String[] s = {"loop" + i};
 			JS2Java.main(s);
 			System.out.println("for Loop"+i);
 		}
-		/*
+
 		// Assignments and expressions
 		for (int i = 1; i <= ASGN_MAX; i++) {
 			String[] s = {"asgn" + i};
@@ -54,6 +53,5 @@ public class Test {
 			JS2Java.main(s);
 			System.out.println("for Array"+i);
 		}
-		*/
 	}
 }
