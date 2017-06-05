@@ -4,36 +4,38 @@ import js2java.JS2Java;
 
 public class Test {
 	public static void main(String args[]) {
-		for (int i = 1; i <= 4; i++) {
-			System.out.println("Asgn"+i);
-			asgn(i);
+		int DECL_MAX = 1;
+		int ASGN_MAX = 4;
+		int CONV_MAX = 5;
+		int ARRAY_MAX = 3;
+		
+		// Declarations
+		for (int i = 1; i <= DECL_MAX; i++) {
+			String[] s = {"decl" + i};
+			JS2Java.main(s);
+			System.out.println("for Decl"+i);
 		}
 		
-		for (int i = 1; i <= 5; i++) {
-			System.out.println("Conv"+i);
-			conv(i);
+		// Assignments and expressions
+		for (int i = 1; i <= ASGN_MAX; i++) {
+			String[] s = {"asgn" + i};
+			JS2Java.main(s);
+			System.out.println("for Asgn"+i);
 		}
 		
-		for (int i = 1; i <= 3; i++) {
-			System.out.println("Array"+i);
-			array(i);
+		// Conversion
+		for (int i = 1; i <= CONV_MAX; i++) {
+			String[] s = {"conv" + i};
+			JS2Java.main(s);
+			System.out.println("for Conv"+i);
 		}
-	}
-	
-	public static void asgn(int i) {
-		String[] args = {"asgn" + i};
-		JS2Java.main(args);
-	}
-	
-	public static void conv(int i) {
-		System.out.println();
-		String[] args = {"conv" + i};
-		JS2Java.main(args);
-	}
-	
-	public static void array(int i) {
-		System.out.println();
-		String[] args = {"array" + i};
-		JS2Java.main(args);
+		
+		
+		// Arrays
+		for (int i = 1; i <= ARRAY_MAX; i++) {
+			String[] s = {"array" + i};
+			JS2Java.main(s);
+			System.out.println("for Array"+i);
+		}
 	}
 }
