@@ -185,7 +185,7 @@ public class Output {
 					Variable var = function.getVariable(var_name);
 					
 					JsonObject init = (JsonObject) dec.get(Utils.INIT);
-					s += var.getName() + " = " + expression(init, function, varTypes.getExpression(dec.hashCode()));
+					s += var.getName() + " = " + expression(init, function, var.getType());
 					if (print) {
 						s += ";";
 					}

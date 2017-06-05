@@ -1,0 +1,8 @@
+var a = [];
+var i = 0;
+do {
+	a.push(i);
+	i++;
+} while(a.length < 5);
+
+console.log(a);

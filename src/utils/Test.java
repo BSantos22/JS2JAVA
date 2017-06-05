@@ -6,7 +6,7 @@ public class Test {
 	public static void main(String args[]) {
 		int DECL_MAX = 1;
 		int IF_MAX = 4;
-		int LOOP_MAX = 1;
+		int LOOP_MAX = 2;
 		int ASGN_MAX = 4;
 		int CONV_MAX = 5;
 		int ARRAY_MAX = 3;
