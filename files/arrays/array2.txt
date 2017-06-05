@@ -1,3 +1,5 @@
 var d = [1, 2, 3, 4, 5];
 var e = d[3];
-console.log(e);
+var f = d[true];
+var g = d[3*2-true*4];
+console.log(e, f, g);

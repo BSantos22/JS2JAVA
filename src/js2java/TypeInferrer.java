@@ -440,8 +440,14 @@ public class TypeInferrer {
 					type = type.replaceAll("\\]", "");
 				}
 				break;
-			case Utils.IDENTIFIER:	
-				type = identifier(expression, function).getType();
+			case Utils.IDENTIFIER:
+				Variable v = identifier(expression, function);
+				if (v == null) {
+					type = Utils.UNDEFINED;
+				}
+				else {
+					type = v.getType();
+				}
 				break;
 			case Utils.LITERAL:
 				type = literal(expression);
@@ -644,6 +650,7 @@ public class TypeInferrer {
 	
 	private Variable member_expression(JsonObject expression, Function function) {
 		String name = expression.get(Utils.OBJECT).getAsJsonObject().get(Utils.NAME).getAsString();
+		expression(expression.get(Utils.PROPERTY).getAsJsonObject(), function);
 		return function.getVariable(name);
 	}
 	

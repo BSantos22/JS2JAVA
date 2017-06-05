@@ -391,6 +391,9 @@ public class Output {
 				if (class_name.equals(Utils.CONSOLE) && function_name.equals(Utils.LOG)) {
 					exp += "System.out.println(";
 				}
+				else if (function_name.equals(Utils.PUSH)) {
+					exp += "); " + class_name + "." + "add(";
+				}
 				else {
 					exp += ", ";
 				}

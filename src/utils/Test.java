@@ -4,7 +4,6 @@ import js2java.JS2Java;
 
 public class Test {
 	public static void main(String args[]) {
-		/*
 		int DECL_MAX = 1;
 		int IF_MAX = 4;
 		int LOOP_MAX = 3;
@@ -40,14 +39,10 @@ public class Test {
 		}		
 		
 		// Arrays
-		for (int i = 2; i <= ARRAY_MAX; i++) {
+		for (int i = 1; i <= ARRAY_MAX; i++) {
 			String[] s = {"array" + i};
 			JS2Java.main(s);
 			System.out.println("for Array"+i);
 		}
-		
-		*/
-		String[] s = {"asgn" + 12};
-		JS2Java.main(s);
 	}
 }

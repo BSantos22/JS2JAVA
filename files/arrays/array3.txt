@@ -2,4 +2,8 @@ array = [];
 for (var i = 0; i < 5; i++) {
 	array.push(i, i);
 }
-console.log(array);
+
+var l = array.length;
+var n = array[array.length-1];
+
+console.log(array, l, n);
