@@ -386,14 +386,7 @@ public class TypeInferrer {
 			}
 		}
 		
-		if (new_function != null) {
-			/*
-			JsonArray params = expression.get(Utils.PARAMS).getAsJsonArray();
-			for (JsonElement e : params) {
-				Variable param = new_function.getParameter(e.getAsJsonObject().get(Utils.NAME).getAsString());				
-			}
-			*/
-			
+		if (new_function != null) {			
 			JsonObject body = expression.get(Utils.BODY).getAsJsonObject();
 			if (body.get(Utils.TYPE).getAsString().equals(Utils.BLOCK_STATEMENT)) {
 				block(body.get(Utils.BODY).getAsJsonArray(), new_function);

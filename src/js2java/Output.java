@@ -401,7 +401,7 @@ public class Output {
 
 	private String assignment_expression(JsonObject expression, Function function) {
 		String exp = "";
-		
+		String operator = expression.get(Utils.OPERATOR).getAsString();
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		if (left.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION)) {
 			exp += member_expression(left, function);
@@ -411,7 +411,7 @@ public class Output {
 		}
 		
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		exp += " = " + expression(right, function, varTypes.getExpression(left.hashCode()));
+		exp += " " + operator + " " + expression(right, function, varTypes.getExpression(left.hashCode()));
 		
 		return exp;
 	}
