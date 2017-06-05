@@ -520,7 +520,7 @@ public class TypeInferrer {
 	private String unary_expression(JsonObject expression, Function function) {
 		String operator = expression.get(Utils.OPERATOR).getAsString();
 		JsonObject argument = expression.get(Utils.ARGUMENT).getAsJsonObject();
-		String type = expression(argument, function);
+		expression(argument, function);
 		if (operator.equals(Utils.OP_NOT)) {
 			return Utils.BOOLEAN;
 		}
@@ -574,10 +574,13 @@ public class TypeInferrer {
 		}
 		
 		// Boolean values are treated as numeric on +, -, *, /
-		if ((Utils.NUMERIC.contains(type1) && type2.equals(Utils.BOOLEAN))
-				|| (Utils.NUMERIC.contains(type2) && type1.equals(Utils.BOOLEAN))
-				|| (type1.equals(Utils.BOOLEAN) && type2.equals(Utils.BOOLEAN))) {
-			
+		if (Utils.NUMERIC.contains(type1) && type2.equals(Utils.BOOLEAN)) {
+			return type1;
+		}
+		else if (Utils.NUMERIC.contains(type2) && type1.equals(Utils.BOOLEAN)) {
+			return type2;
+		}
+		else if (type1.equals(Utils.BOOLEAN) && type2.equals(Utils.BOOLEAN)){
 			return Utils.INT;
 		}
 		

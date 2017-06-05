@@ -21,7 +21,7 @@ public class JS2Java {
 		String varsFilepath;
 		String jsFilepath;
 		String txtFilepath;
-		String dir, dir2;
+		String dir;
 		
 		if (args.length == 2) {
 			jsFilepath = args[0];

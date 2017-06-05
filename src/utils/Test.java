@@ -4,11 +4,11 @@ import js2java.JS2Java;
 
 public class Test {
 	public static void main(String args[]) {
+		/*
 		int DECL_MAX = 1;
 		int IF_MAX = 4;
 		int LOOP_MAX = 3;
-		int ASGN_MAX = 8;
-		int CONV_MAX = 5;
+		int ASGN_MAX = 12;
 		int ARRAY_MAX = 3;
 		
 		// Declarations and types
@@ -37,15 +37,7 @@ public class Test {
 			String[] s = {"asgn" + i};
 			JS2Java.main(s);
 			System.out.println("for Asgn"+i);
-		}
-		
-		// Conversion
-		for (int i = 1; i <= CONV_MAX; i++) {
-			String[] s = {"conv" + i};
-			JS2Java.main(s);
-			System.out.println("for Conv"+i);
-		}
-		
+		}		
 		
 		// Arrays
 		for (int i = 2; i <= ARRAY_MAX; i++) {
@@ -53,5 +45,9 @@ public class Test {
 			JS2Java.main(s);
 			System.out.println("for Array"+i);
 		}
+		
+		*/
+		String[] s = {"asgn" + 12};
+		JS2Java.main(s);
 	}
 }
