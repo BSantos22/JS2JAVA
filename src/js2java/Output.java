@@ -163,6 +163,9 @@ public class Output {
 		else if (expression.get(Utils.TYPE).getAsString().equals(Utils.CALL_EXPRESSION)) {
 			println(call_expression(expression, function)+";", ind);
 		}
+		else if (expression.get(Utils.TYPE).getAsString().equals(Utils.UPDATE_EXPRESSION)) {
+			println(update_expression(expression, function)+";", ind);
+		}
 		else {
 			println(assignment_expression(expression, function)+";", ind);
 		}

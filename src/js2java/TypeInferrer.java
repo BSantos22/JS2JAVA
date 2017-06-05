@@ -273,6 +273,9 @@ public class TypeInferrer {
 		else if (expression.get(Utils.TYPE).getAsString().equals(Utils.CALL_EXPRESSION)) {
 			call_expression(expression, function);
 		}
+		else if (expression.get(Utils.TYPE).getAsString().equals(Utils.UPDATE_EXPRESSION)) {
+			update_expression(expression, function);
+		}
 		else {
 			assignment_expression(expression, function);
 		}
