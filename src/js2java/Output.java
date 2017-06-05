@@ -597,16 +597,14 @@ public class Output {
 	private String member_expression(JsonObject expression, Function function) {
 		String exp = expression.get(Utils.OBJECT).getAsJsonObject().get(Utils.NAME).getAsString();
 		JsonElement name = expression.get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME);
-		if (name != null) {
-			if (name.getAsString().equals(Utils.LENGTH)) {
-				exp += ".size()";
-			}
-			else {
-				JsonObject expType = expression.get(Utils.PROPERTY).getAsJsonObject();
-				exp += ".get(";
-				exp += expression(expType, function, Utils.INT);
-				exp += ")";
-			}
+		if (name != null && name.getAsString().equals(Utils.LENGTH)) {
+			exp += ".size()";
+		}
+		else {
+			JsonObject expType = expression.get(Utils.PROPERTY).getAsJsonObject();
+			exp += ".get(";
+			exp += expression(expType, function, Utils.INT);
+			exp += ")";
 		}
 		
 		return exp;
