@@ -1,8 +1,8 @@
 **PROJECT TITLE: JS2JAVA: A compiler to translate a subset of JavaScript to Java
 **GROUP: G16
-NAME1: Bruno Santos, NR1: 201402962, GRADE1: <0 to 20 value>, CONTRIBUTION1: 33%
-NAME2: Frederico Rocha, NR2: 201408030,  GRADE2: <0 to 20 value>, CONTRIBUTION2: 33%
-NAME3: José Costa, NR3: 201402717, GRADE3: <0 to 20 value>, CONTRIBUTION1: 33%
+NAME1: Bruno Santos, NR1: 201402962, GRADE1: <0 to 20 values>, CONTRIBUTION1: 33%
+NAME2: Frederico Rocha, NR2: 201408030,  GRADE2: <0 to 20 values>, CONTRIBUTION2: 33%
+NAME3: JosÃ© Costa, NR3: 201402717, GRADE3: <0 to 20 values>, CONTRIBUTION1: 33%
 
 **SUMMARY:
 This project generates Java code from a subset of JavaScript. 
@@ -59,12 +59,12 @@ Javass, and output checks when there are type mismatches (arithmetic operations 
 boolean expressions with ints...).
 
 **OVERVIEW:
-Our project basically reads an AST and, by running iterating through its nodes, infers the type
+Our project reads an AST and, by iterating through its nodes, infers the type
 of the used variables and generates Java code.
 To make this process easier we used GSON, a java library that can be used to convert JSON
 representations to Java Objects.
-In the end the program creates a Java file in the output folder of the project which can be
-compiled and run.
+In the end, the program creates a Java file in the output folder of the project which can be
+compiled and ran.
 
 **TESTSUITE AND TEST INFRASTRUCTURE:
 We have several testing ASTs that highlight the different aspects of our program.
