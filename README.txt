@@ -1,11 +1,8 @@
 **PROJECT TITLE: JS2JAVA: A compiler to translate a subset of JavaScript to Java/C++
 **GROUP: G16
-NAME1: Bruno Santos, NR1: 201402962,
-GRADE1: <0 to 20 value>, CONTRIBUTION1: <0 to 100 %>
-NAME2: Frederico Rocha, NR2: 201408030, 
-GRADE2: <0 to 20 value>, CONTRIBUTION2: <0 to 100 %>
-NAME3: José Costa, NR3: 201402717,
-GRADE3: <0 to 20 value>, CONTRIBUTION1: <0 to 100 %>
+NAME1: Bruno Santos, NR1: 201402962, GRADE1: <0 to 20 value>, CONTRIBUTION1: <0 to 100 %>
+NAME2: Frederico Rocha, NR2: 201408030,  GRADE2: <0 to 20 value>, CONTRIBUTION2: <0 to 100 %>
+NAME3: José Costa, NR3: 201402717, GRADE3: <0 to 20 value>, CONTRIBUTION1: <0 to 100 %>
  
 **SUMMARY: This project generates Java code from a subset of JavaScript. 
 	The input is the AST of the JavaScript code and the output is Java. 
@@ -20,17 +17,17 @@ GRADE3: <0 to 20 value>, CONTRIBUTION1: <0 to 100 %>
  
 **SEMANTIC ANALYSIS: (Refer the possible semantic rules implemented by your tool.)
  
-**INTERMEDIATE REPRESENTATIONS (IRs): (for example, when applicable, briefly describe the HLIR (high-level IR) and the LLIR (low-level IR) used, 
-	if your tool includes an LLIR with structure different from the HLIR)
+**INTERMEDIATE REPRESENTATIONS (IRs):We use an AST(Abstract Sintax Tree) generated from the JSON file, and from that, anilyse it and procede to generating the Java code from it.
  
 **CODE GENERATION: (when applicable, describe how the code generation of your tool works and identify the possible problems your tool has regarding code generation.)
  
 **OVERVIEW: (refer the approach used in your tool, the main algorithms, the third-party tools and/or packages, etc.)
- 
+
 **TESTSUITE AND TEST INFRASTRUCTURE: (Describe the content of your testsuite regarding the number of examples, the approach to automate the test, etc.)
  
 **TASK DISTRIBUTION: (Identify the set of tasks done by each member of the project.)
  
 **PROS: (Identify the most positive aspects of your tool)
  
-**CONS: (Identify the most negative aspects of your tool)
+**CONS: The main con of the project is the inability to determine data types. At the moment the user must also provide, besides the file to be converted, 
+	an additional JSON file which specifies all the types for the variables present in the JavaScript code.
