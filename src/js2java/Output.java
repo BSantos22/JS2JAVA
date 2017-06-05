@@ -65,7 +65,7 @@ public class Output {
 				type = v.getType().replaceAll("\\[", "");
 				type = type.replaceAll("\\]", "");
 				type = toObject(type);				
-				type = "ArrayList<" + type + "> ";
+				type = "ArrayList<" + type + ">";
 			}
 			
 			println("public static " + type + " " + v.getName() + ";", ind+1);
@@ -318,7 +318,7 @@ public class Output {
 				t = binary_expression(expression, function);
 				break;
 			case Utils.ARRAY_EXPRESSION:
-				t = array_expression(expression, function);
+				t = array_expression(expression, function, type);
 				break;
 			case Utils.MEMBER_EXPRESSION:
 				t = member_expression(expression, function);
@@ -532,11 +532,11 @@ public class Output {
 		return "";
 	}
 	
-	private String array_expression(JsonObject expression, Function function) {
-		String expType = varTypes.getExpression(expression.hashCode());
+	private String array_expression(JsonObject expression, Function function, String objType) {
+		String expType = objType;
 		expType = expType.replace("[", "");
 		expType = expType.replace("]", "");
-		String objType = toObject(expType);		
+		objType = toObject(expType);		
 		
 		String exp = "new ArrayList<" + objType + ">(){{";		
 		JsonArray elements = expression.get(Utils.ELEMENTS).getAsJsonArray();

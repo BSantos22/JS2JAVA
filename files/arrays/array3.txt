@@ -1,5 +1,5 @@
-var array = [];
+array = [];
 for (var i = 0; i < 5; i++) {
-	array.push(i);
+	array.push(i, i);
 }
 console.log(array);
