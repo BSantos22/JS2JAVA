@@ -30,7 +30,9 @@ NAME3: José Costa, NR3: 201402717, GRADE3: <0 to 20 value>, CONTRIBUTION1: <0 to
 	-hamcrest: a framework for writing matcher objects allowing 'match' rules to be defined declaratively;
 	-javatuples: a java librarie whose aim is to provide a set of java classes that allow you to work with tuples.
 
-**TESTSUITE AND TEST INFRASTRUCTURE: (Describe the content of your testsuite regarding the number of examples, the approach to automate the test, etc.)
+**TESTSUITE AND TEST INFRASTRUCTURE: The automated tests are done in the Test.java file, where we run several json files through the program. Each type of json file represents 
+				a different aspect of the conversion, for example loops, declarations, expressions, etc. In total there are 6 different types of json files, 
+				each with a different number of files of the same type.
  
 **TASK DISTRIBUTION: (Identify the set of tasks done by each member of the project.)
  
