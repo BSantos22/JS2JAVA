@@ -24,7 +24,7 @@ public class Output {
 		outputFileName = fileName.substring(0, 1).toUpperCase() + fileName.substring(1);
 		
 		try {
-			outputFile = new PrintWriter("src/output/"+outputFileName+".java", "UTF-8");
+			outputFile = new PrintWriter("output/"+outputFileName+".java", "UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
