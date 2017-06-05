@@ -6,7 +6,7 @@ NAME3: José Costa, NR3: 201402717, GRADE3: <0 to 20 value>, CONTRIBUTION1: 33%
 
 **SUMMARY:
 This project generates Java code from a subset of JavaScript. 
-The input is the AST of the JavaScript code and the output is Java. 
+The input is the AST of the JavaScript code and the output is its corresponding Java code. 
 The Javascript code consists of one or more functions and global variables. 
 The framework infers the types of the variables used based on the provided code.
 It can also use an input JSON file describing the types of the variables used in the Javascript
