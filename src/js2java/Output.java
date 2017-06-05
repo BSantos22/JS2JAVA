@@ -371,9 +371,13 @@ public class Output {
 		if (class_name.equals(Utils.CONSOLE) && function_name.equals(Utils.LOG)) {
 			exp += "System.out.println(";
 		}
+		else if (function_name.equals(Utils.PUSH)) {
+			exp += class_name + "." + "add(";
+			params = varTypes.getParams(function_name);
+		}
 		else {
 			exp += class_name + "." + function_name + "(";
-			varTypes.getParams(function_name);
+			params = varTypes.getParams(function_name);
 		}
 		
 		JsonArray arguments = expression.get(Utils.ARGUMENTS).getAsJsonArray();

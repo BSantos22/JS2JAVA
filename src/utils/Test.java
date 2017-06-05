@@ -14,7 +14,7 @@ public class Test {
 			conv(i);
 		}
 		
-		for (int i = 1; i <= 2; i++) {
+		for (int i = 1; i <= 3; i++) {
 			System.out.println("Array"+i);
 			array(i);
 		}

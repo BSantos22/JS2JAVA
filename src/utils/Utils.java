@@ -8,6 +8,7 @@ public class Utils {
 	public static final String CONSOLE = "console";
 	public static final String LENGTH = "length";
 	public static final String LOG = "log";
+	public static final String PUSH = "push";
 	
 	// Common types
 	public static final String STRING = "string";

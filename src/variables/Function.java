@@ -41,6 +41,18 @@ public class Function {
 			}
 		}
 		
+		for (Variable v: declared) {
+			if (v.equals(name)) {
+				return v;
+			}
+		}
+		
+		for (Variable v: parameters) {
+			if (v.equals(name)) {
+				return v;
+			}
+		}
+		
 		return null;
 	}
 	

@@ -453,9 +453,11 @@ public class TypeInferrer {
 	}
 	
 	private String call_expression(JsonObject expression, Function function) {
-		String function_name;
-		if (expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME) == null) {
-			function_name = "";
+		String function_name = null;
+		String array_name = null;
+		if (expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION)) {
+			function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME).getAsString();
+			array_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.OBJECT).getAsJsonObject().get(Utils.NAME).getAsString();
 		}
 		else {
 			function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME).getAsString();
@@ -466,13 +468,18 @@ public class TypeInferrer {
 			expression(arg.getAsJsonObject(), function);
 		}
 		
+		if (array_name != null && function_name.equals(Utils.PUSH)) {
+			Variable v = function.getVariable(array_name);
+			for (int i = 0; i < args.size(); i++) {
+				v.addType(expression(args.get(i).getAsJsonObject(), function)+"[]");
+			}
+		}
+		
 		for (Function f: functions) {
-			if (f.getName().equals(function_name)) {
-				JsonArray arguments = expression.get(Utils.ARGUMENTS).getAsJsonArray();
-				
+			if (f.getName().equals(function_name)) {				
 				// Add type of each parameter to called function
-				for (int i = 0; i < arguments.size(); i++) {
-					f.getParameter(i).addType(expression(arguments.get(i).getAsJsonObject(), function));
+				for (int i = 0; i < args.size(); i++) {
+					f.getParameter(i).addType(expression(args.get(i).getAsJsonObject(), function));
 				}
 				
 				return f.getReturnType();
