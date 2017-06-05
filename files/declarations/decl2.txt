@@ -1,0 +1,5 @@
+var transient = 4;
+var volatile = 1;
+var synchronized = 5;
+var strictfp = 3;
+console.log((strictfp*synchronized+volatile)/transient);

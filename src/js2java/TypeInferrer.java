@@ -16,11 +16,13 @@ public class TypeInferrer {
 	private ArrayList<Function> functions;
 	private ArrayList<Variable> defined;
 	private HashMap<Integer, String> expressionsProcessed;
+	private ArrayList<String> invalidIdentifiers;
 	
 	public TypeInferrer(JsonObject js, JsonObject vars) {
 		functions = new ArrayList<Function>();
 		defined = new ArrayList<Variable>();
 		expressionsProcessed = new HashMap<Integer, String>();
+		invalidIdentifiers = new ArrayList<String>(); 
 		
 		addTypeDef(vars);
 		Function global = new Function("global", null);
@@ -28,6 +30,10 @@ public class TypeInferrer {
 		addDeclaredVariables(js, global);
 		inferScope(global);
 		addDeclaredTypes();
+		checkIndentifiers();		
+		if (invalidIdentifiers.size() > 0) {
+			return;
+		}
 		
 		String prev_variables = "";
 		String variables = "";
@@ -68,6 +74,10 @@ public class TypeInferrer {
 		}
 		
 		return new ArrayList<Variable>();
+	}
+	
+	public ArrayList<String> getInvalidIdentifiers() {
+		return invalidIdentifiers;
 	}
 	
 	// Adds variables in type definition file to defined
@@ -215,6 +225,26 @@ public class TypeInferrer {
 					if (d.equals(v)) {
 						v.addType(d.getType());
 					}
+				}
+			}
+		}
+	}
+	
+	// Check if any of the identifiers used are Java 
+	public void checkIndentifiers() {
+		for (Function f: functions) {
+			ArrayList<Variable> vars = new ArrayList<Variable>();
+			vars.addAll(f.getUsed());
+			vars.addAll(f.getDeclared());
+			vars.addAll(f.getParameters());
+			
+			if (Utils.RESERVED.contains(f.getName())) {
+				invalidIdentifiers.add(f.getName());
+			}
+			
+			for (Variable v: vars) {
+				if (Utils.RESERVED.contains(v.getName())) {
+					invalidIdentifiers.add(v.getName());
 				}
 			}
 		}

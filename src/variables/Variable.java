@@ -74,6 +74,7 @@ public class Variable {
 	
 	// Set
 	public void addType(String type) { this.type.add(type); }
+	public void setName(String s) { this.name = s; }
 	
 	// Utils
 	public String toString() { return "- " + id + " - " + name + " - " + getType(); }

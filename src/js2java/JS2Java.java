@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import com.google.gson.JsonObject;
@@ -125,6 +126,18 @@ public class JS2Java {
 	
 	public static boolean checkVariables(TypeInferrer inferrer) {
 		boolean valid = true;
+		
+		if (inferrer.getInvalidIdentifiers().size() > 0) {
+			System.err.println("Error: the following identifiers used Java reserved words and must be changed");
+			ArrayList<String> vars = new ArrayList<String>(new HashSet<String>(inferrer.getInvalidIdentifiers()));
+			
+			for (String s: vars) {
+				System.err.println("\t"+ s);
+			}
+			
+			return false;
+		}
+		
 		for (Function f: inferrer.getFunctions()) {
 			ArrayList<Variable> allVariables = new ArrayList<Variable>();
 			allVariables.addAll(f.getDeclared());

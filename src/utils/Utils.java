@@ -42,6 +42,14 @@ public class Utils {
 		}
 	}
 	
+	// Java reserved words
+	public static final ArrayList<String> RESERVED = new ArrayList<String>(Arrays.asList(
+			"abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const",
+			"continue", "default", "do", "double", "else", "enum", "extends", "final", "finally", "float",
+			"for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long", "native",
+			"new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super",
+			"switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while"));
+	
 	// AST Blocks and Tokens
 	public static final String VARS = "vars";
 	public static final String NAME = "name";
