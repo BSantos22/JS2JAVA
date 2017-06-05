@@ -590,7 +590,7 @@ public class Output {
 		JsonElement name = expression.get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME);
 		if (name != null) {
 			if (name.getAsString().equals(Utils.LENGTH)) {
-				exp += ".length";
+				exp += ".size()";
 			}
 		}
 		else {
