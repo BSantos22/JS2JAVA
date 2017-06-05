@@ -41,13 +41,32 @@ public class Output {
 		println("", 0);
 		println("package output;", 0);
 		println("", 0);
-		println("import java.util.ArrayList;", 0);
-		println("", 0);
+		if (containsArrays()) {
+			println("import java.util.ArrayList;", 0);
+			println("", 0);
+		}
 		Function global = varTypes.getFunctions().get(0);
 		function_declaration(inputFile, global, 0);
 		outputFile.close();
 	}
 
+	private boolean containsArrays() {
+		for (Function f: varTypes.getFunctions()) {
+			ArrayList<Variable> vars = new ArrayList<Variable>();
+			vars.addAll(f.getUsed());
+			vars.addAll(f.getDeclared());
+			vars.addAll(f.getParameters());
+			
+			for (Variable v: vars) {
+				if (v.getType().contains("[]")) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
 	private void function_declaration(JsonObject expression, Function function, int ind) {
 		if (function.getName().equals("global")) {
 			println("public class " + outputFileName + " {", ind);
@@ -90,7 +109,21 @@ public class Output {
 				parameters += param.getType() + " " + param.getName();
 			}
 			
-			println("public static " + function.getReturnType() + " " + function.getName() + "(" + parameters + ") {", ind+1);
+			String type = function.getReturnType();
+			if (type.equals(Utils.STRING)) {
+				type = "String";
+			}
+			else if (type.contains("[]")) {
+				type = type.replaceAll("\\[", "");
+				type = type.replaceAll("\\]", "");
+				type = toObject(type);				
+				type = "ArrayList<" + type + ">";
+			}
+			else if (type.equals(Utils.UNDEFINED)) {
+				type = "void";
+			}
+			
+			println("public static " + type + " " + function.getName() + "(" + parameters + ") {", ind+1);
 			nestedFunctions = processFunction(expression.get(Utils.BODY).getAsJsonObject().get(Utils.BODY).getAsJsonArray(), function, ind+2);
 		}
 		

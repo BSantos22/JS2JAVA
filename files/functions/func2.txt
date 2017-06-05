@@ -1,0 +1,12 @@
+var x = 3;
+function a(x) {
+	var x = x*2;
+	return x;
+}
+
+function b(x) {
+	var y = x*2;
+	return y;
+}
+
+console.log(a(x)*b(x));

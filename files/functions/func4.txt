@@ -1,0 +1,47 @@
+var x = 3;
+var y = 2;
+a();
+console.log(x, y);
+
+var x = 3;
+var y = 2;
+b();
+console.log(x, y);
+
+var x = 3;
+var y = 2;
+c();
+console.log(x, y);
+
+var x = 3;
+var y = 2;
+a(); b(); c();
+console.log(x, y);
+
+function a() {
+	x = 6;
+	aa();
+	
+	function aa() {
+		y = x*x;
+	}
+}
+
+function b() {
+	var x = 6;
+	bb();
+	
+	function bb() {
+		y = x*x;
+	}
+}
+
+function c() {
+	var x = 6;
+	var y = 10;
+	
+	function cc() {
+		y = x*x;
+	}
+}
+

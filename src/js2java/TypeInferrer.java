@@ -155,9 +155,9 @@ public class TypeInferrer {
 	}
 	
 	// Remove duplicate variables (same variable become same object)
-	public void inferScope(Function f) {
+	public void inferScope(Function f) {		
+		// find variable declaration for variable in this function and its parents
 		for (Variable v: f.getUsed()) {
-			// find variable declaration for variable in this function and its parents
 			Function scope = f;
 			boolean found = false;
 			while (scope != null) {

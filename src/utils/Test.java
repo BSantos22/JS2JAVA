@@ -9,6 +9,7 @@ public class Test {
 		int LOOP_MAX = 3;
 		int ASGN_MAX = 12;
 		int ARRAY_MAX = 3;
+		int FUNC_MAX = 4;
 		
 		// Declarations and types
 		for (int i = 1; i <= DECL_MAX; i++) {
@@ -44,5 +45,13 @@ public class Test {
 			JS2Java.main(s);
 			System.out.println("for Array"+i);
 		}
+		
+		// Functions
+		for (int i = 1; i <= FUNC_MAX; i++) {
+			String[] s = {"func" + i};
+			JS2Java.main(s);
+			System.out.println("for Func"+i);
+		}
+		
 	}
 }

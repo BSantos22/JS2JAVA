@@ -1,0 +1,444 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "x"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 2,
+                        "raw": "2"
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "y"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 3,
+                        "raw": "3"
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "z"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 1,
+                        "raw": "1"
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "array"
+                    },
+                    "init": {
+                        "type": "ArrayExpression",
+                        "elements": [
+                            {
+                                "type": "Literal",
+                                "value": 4,
+                                "raw": "4"
+                            },
+                            {
+                                "type": "Literal",
+                                "value": 2,
+                                "raw": "2"
+                            },
+                            {
+                                "type": "Literal",
+                                "value": 1,
+                                "raw": "1"
+                            },
+                            {
+                                "type": "Literal",
+                                "value": 3,
+                                "raw": "3"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "FunctionDeclaration",
+            "id": {
+                "type": "Identifier",
+                "name": "a"
+            },
+            "params": [
+                {
+                    "type": "Identifier",
+                    "name": "bool"
+                },
+                {
+                    "type": "Identifier",
+                    "name": "ind"
+                }
+            ],
+            "body": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "VariableDeclaration",
+                        "declarations": [
+                            {
+                                "type": "VariableDeclarator",
+                                "id": {
+                                    "type": "Identifier",
+                                    "name": "x"
+                                },
+                                "init": {
+                                    "type": "BinaryExpression",
+                                    "operator": "*",
+                                    "left": {
+                                        "type": "Literal",
+                                        "value": 3,
+                                        "raw": "3"
+                                    },
+                                    "right": {
+                                        "type": "MemberExpression",
+                                        "computed": true,
+                                        "object": {
+                                            "type": "Identifier",
+                                            "name": "array"
+                                        },
+                                        "property": {
+                                            "type": "Identifier",
+                                            "name": "ind"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "VariableDeclarator",
+                                "id": {
+                                    "type": "Identifier",
+                                    "name": "y"
+                                },
+                                "init": {
+                                    "type": "BinaryExpression",
+                                    "operator": "*",
+                                    "left": {
+                                        "type": "Literal",
+                                        "value": 2,
+                                        "raw": "2"
+                                    },
+                                    "right": {
+                                        "type": "MemberExpression",
+                                        "computed": true,
+                                        "object": {
+                                            "type": "Identifier",
+                                            "name": "array"
+                                        },
+                                        "property": {
+                                            "type": "Identifier",
+                                            "name": "ind"
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "kind": "var"
+                    },
+                    {
+                        "type": "VariableDeclaration",
+                        "declarations": [
+                            {
+                                "type": "VariableDeclarator",
+                                "id": {
+                                    "type": "Identifier",
+                                    "name": "abc"
+                                },
+                                "init": {
+                                    "type": "Literal",
+                                    "value": 2,
+                                    "raw": "2"
+                                }
+                            }
+                        ],
+                        "kind": "var"
+                    },
+                    {
+                        "type": "VariableDeclaration",
+                        "declarations": [
+                            {
+                                "type": "VariableDeclarator",
+                                "id": {
+                                    "type": "Identifier",
+                                    "name": "xyz"
+                                },
+                                "init": {
+                                    "type": "MemberExpression",
+                                    "computed": false,
+                                    "object": {
+                                        "type": "Identifier",
+                                        "name": "array"
+                                    },
+                                    "property": {
+                                        "type": "Identifier",
+                                        "name": "length"
+                                    }
+                                }
+                            }
+                        ],
+                        "kind": "var"
+                    },
+                    {
+                        "type": "FunctionDeclaration",
+                        "id": {
+                            "type": "Identifier",
+                            "name": "b"
+                        },
+                        "params": [],
+                        "body": {
+                            "type": "BlockStatement",
+                            "body": [
+                                {
+                                    "type": "VariableDeclaration",
+                                    "declarations": [
+                                        {
+                                            "type": "VariableDeclarator",
+                                            "id": {
+                                                "type": "Identifier",
+                                                "name": "x"
+                                            },
+                                            "init": {
+                                                "type": "BinaryExpression",
+                                                "operator": "*",
+                                                "left": {
+                                                    "type": "Literal",
+                                                    "value": 2,
+                                                    "raw": "2"
+                                                },
+                                                "right": {
+                                                    "type": "Identifier",
+                                                    "name": "abc"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "kind": "var"
+                                },
+                                {
+                                    "type": "ReturnStatement",
+                                    "argument": {
+                                        "type": "ArrayExpression",
+                                        "elements": [
+                                            {
+                                                "type": "Identifier",
+                                                "name": "x"
+                                            },
+                                            {
+                                                "type": "Identifier",
+                                                "name": "y"
+                                            },
+                                            {
+                                                "type": "Identifier",
+                                                "name": "z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "generator": false,
+                        "expression": false
+                    },
+                    {
+                        "type": "IfStatement",
+                        "test": {
+                            "type": "Identifier",
+                            "name": "bool"
+                        },
+                        "consequent": {
+                            "type": "BlockStatement",
+                            "body": [
+                                {
+                                    "type": "ReturnStatement",
+                                    "argument": {
+                                        "type": "CallExpression",
+                                        "callee": {
+                                            "type": "Identifier",
+                                            "name": "b"
+                                        },
+                                        "arguments": []
+                                    }
+                                }
+                            ]
+                        },
+                        "alternate": null
+                    },
+                    {
+                        "type": "ReturnStatement",
+                        "argument": {
+                            "type": "ArrayExpression",
+                            "elements": [
+                                {
+                                    "type": "BinaryExpression",
+                                    "operator": "*",
+                                    "left": {
+                                        "type": "Identifier",
+                                        "name": "x"
+                                    },
+                                    "right": {
+                                        "type": "Identifier",
+                                        "name": "xyz"
+                                    }
+                                },
+                                {
+                                    "type": "BinaryExpression",
+                                    "operator": "*",
+                                    "left": {
+                                        "type": "Identifier",
+                                        "name": "y"
+                                    },
+                                    "right": {
+                                        "type": "Identifier",
+                                        "name": "xyz"
+                                    }
+                                },
+                                {
+                                    "type": "BinaryExpression",
+                                    "operator": "*",
+                                    "left": {
+                                        "type": "Identifier",
+                                        "name": "z"
+                                    },
+                                    "right": {
+                                        "type": "Identifier",
+                                        "name": "xyz"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "generator": false,
+            "expression": false
+        },
+        {
+            "type": "FunctionDeclaration",
+            "id": {
+                "type": "Identifier",
+                "name": "c"
+            },
+            "params": [],
+            "body": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "AssignmentExpression",
+                            "operator": "=",
+                            "left": {
+                                "type": "Identifier",
+                                "name": "z"
+                            },
+                            "right": {
+                                "type": "Literal",
+                                "value": 4,
+                                "raw": "4"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ReturnStatement",
+                        "argument": {
+                            "type": "ArrayExpression",
+                            "elements": [
+                                {
+                                    "type": "Identifier",
+                                    "name": "x"
+                                },
+                                {
+                                    "type": "Identifier",
+                                    "name": "y"
+                                },
+                                {
+                                    "type": "Identifier",
+                                    "name": "z"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "generator": false,
+            "expression": false
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "callee": {
+                    "type": "MemberExpression",
+                    "computed": false,
+                    "object": {
+                        "type": "Identifier",
+                        "name": "console"
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "name": "log"
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "CallExpression",
+                        "callee": {
+                            "type": "Identifier",
+                            "name": "a"
+                        },
+                        "arguments": [
+                            {
+                                "type": "Identifier",
+                                "name": "x"
+                            },
+                            {
+                                "type": "Identifier",
+                                "name": "y"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "sourceType": "script"
+}
