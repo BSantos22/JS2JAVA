@@ -41,6 +41,8 @@ public class Output {
 		println("", 0);
 		println("package output;", 0);
 		println("", 0);
+		println("import java.util.ArrayList;", 0);
+		println("", 0);
 		Function global = varTypes.getFunctions().get(0);
 		function_declaration(inputFile, global, 0);
 		outputFile.close();
@@ -58,6 +60,12 @@ public class Output {
 			String type = v.getType();
 			if (v.getType().equals(Utils.STRING)) {
 				type = "String";
+			}
+			else if (v.getType().contains("[]")) {
+				type = v.getType().replaceAll("\\[", "");
+				type = type.replaceAll("\\]", "");
+				type = toObject(type);				
+				type = "ArrayList<" + type + "> ";
 			}
 			
 			println("public static " + type + " " + v.getName() + ";", ind+1);
@@ -524,36 +532,65 @@ public class Output {
 		String expType = varTypes.getExpression(expression.hashCode());
 		expType = expType.replace("[", "");
 		expType = expType.replace("]", "");
-		String exp = "{";
+		String objType = toObject(expType);		
 		
+		String exp = "new ArrayList<" + objType + ">(){{";		
 		JsonArray elements = expression.get(Utils.ELEMENTS).getAsJsonArray();
 		for (int i = 0; i < elements.size(); i++) {
 			JsonObject o = elements.get(i).getAsJsonObject();
-			
-			if (i != 0) {
-				exp += ", " + expression(o, function, expType);
-			}
-			else {
-				exp += expression(o, function, expType);
-			}
+			exp += "add(" + expression(o, function, expType) + "); ";
 		}
 		
-		exp += "}";
-		exp = "new " + expType + exp;
+		exp += "}}";
 		
 		return exp;
 	}
 	
+	private String toObject(String expType) {
+		if (expType.equals(Utils.STRING)) {
+			return "String";
+		}
+		else if (expType.equals(Utils.BOOLEAN)) {
+			return "Boolean";
+		}
+		else if (expType.equals(Utils.BYTE)) {
+			return "Byte";
+		}
+		else if (expType.equals(Utils.SHORT)) {
+			return "Short";
+		}
+		else if (expType.equals(Utils.INT)) {
+			return "Integer";
+		}
+		else if (expType.equals(Utils.LONG)) {
+			return "Long";
+		}
+		else if (expType.equals(Utils.FLOAT)) {
+			return "Float";
+		}
+		else if (expType.equals(Utils.DOUBLE)) {
+			return "Double";
+		}
+		else if (expType.equals(Utils.CHAR)) {
+			return "Character";
+		}
+		
+		return Utils.UNDEFINED;
+	}
+	
 	private String member_expression(JsonObject expression, Function function) {
 		String exp = expression.get(Utils.OBJECT).getAsJsonObject().get(Utils.NAME).getAsString();
-		if (expression.get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME).getAsString().equals(Utils.LENGTH)) {
-			exp += ".length";
+		JsonElement name = expression.get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME);
+		if (name != null) {
+			if (name.getAsString().equals(Utils.LENGTH)) {
+				exp += ".length";
+			}
 		}
 		else {
 			JsonObject expType = expression.get(Utils.PROPERTY).getAsJsonObject();
-			exp += "[";
+			exp += ".get(";
 			exp += expression(expType, function, Utils.INT);
-			exp += "]";
+			exp += ")";
 		}
 		
 		return exp;

@@ -13,6 +13,11 @@ public class Test {
 			System.out.println("Conv"+i);
 			conv(i);
 		}
+		
+		for (int i = 1; i <= 2; i++) {
+			System.out.println("Array"+i);
+			array(i);
+		}
 	}
 	
 	public static void asgn(int i) {
@@ -23,6 +28,12 @@ public class Test {
 	public static void conv(int i) {
 		System.out.println();
 		String[] args = {"conv" + i};
+		JS2Java.main(args);
+	}
+	
+	public static void array(int i) {
+		System.out.println();
+		String[] args = {"array" + i};
 		JS2Java.main(args);
 	}
 }

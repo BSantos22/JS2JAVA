@@ -108,7 +108,9 @@ public class TypeInferrer {
 					continue;
 				}
 				// Ignore array length calls
-				else if (object.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION) && entry.getKey().equals(Utils.PROPERTY) && entry.getValue().getAsJsonObject().get(Utils.NAME).getAsString().equals(Utils.LENGTH)) {
+				else if (object.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION) && 
+						entry.getKey().equals(Utils.PROPERTY) &&
+						entry.getValue().getAsJsonObject().get(Utils.NAME) != null) {
 					continue;
 				}
 				else {
