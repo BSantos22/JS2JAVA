@@ -418,15 +418,23 @@ public class Output {
 		String exp = "";
 		String operator = expression.get(Utils.OPERATOR).getAsString();
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
+		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
+		
 		if (left.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION)) {
-			exp += member_expression(left, function);
+			exp = member_expression(left, function);
+			String func_name = exp.split("\\.")[0];
+			
+			// Get function name, remove .get( ) 
+			String index = exp.split("\\.")[1];
+			index = index.replace("get(", "");
+			index = index.substring(0, index.length()-1);
+			
+			exp = func_name + ".set(" + index + ", " + expression(right, function, varTypes.getExpression(left.hashCode())) + ")";
 		}
 		else {
-			exp += identifier(left, function);
+			exp = identifier(left, function);
+			exp += " " + operator + " " + expression(right, function, varTypes.getExpression(left.hashCode()));
 		}
-		
-		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		exp += " " + operator + " " + expression(right, function, varTypes.getExpression(left.hashCode()));
 		
 		return exp;
 	}
@@ -592,12 +600,12 @@ public class Output {
 			if (name.getAsString().equals(Utils.LENGTH)) {
 				exp += ".size()";
 			}
-		}
-		else {
-			JsonObject expType = expression.get(Utils.PROPERTY).getAsJsonObject();
-			exp += ".get(";
-			exp += expression(expType, function, Utils.INT);
-			exp += ")";
+			else {
+				JsonObject expType = expression.get(Utils.PROPERTY).getAsJsonObject();
+				exp += ".get(";
+				exp += expression(expType, function, Utils.INT);
+				exp += ")";
+			}
 		}
 		
 		return exp;

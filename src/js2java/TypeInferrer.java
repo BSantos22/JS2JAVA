@@ -494,18 +494,17 @@ public class TypeInferrer {
 	
 	private String assignment_expression(JsonObject expression, Function function) {		
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
+		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
+		String type = expression(right, function);
 		Variable assign;
 		if (left.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION)) {
 			assign = member_expression(left, function);
+			assign.addType(type + "[]");
 		}
 		else {
 			assign = identifier(left, function);
-		}
-		
-		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		String type = expression(right, function);
-		
-		assign.addType(type);
+			assign.addType(type);
+		}		
 		
 		return type;
 	}
@@ -627,7 +626,12 @@ public class TypeInferrer {
 			temp.addType(type);
 		}
 		
-		return temp.getType()+"[]";
+		if (temp.getType().equals(Utils.UNDEFINED)) {
+			return temp.getType();
+		}
+		else {
+			return temp.getType()+"[]";
+		}
 	}
 	
 	private Variable member_expression(JsonObject expression, Function function) {
