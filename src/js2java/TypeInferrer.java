@@ -53,7 +53,11 @@ public class TypeInferrer {
 	}
 	
 	public String getExpression(int hash) {
-		return expressionsProcessed.get(hash);
+		String exp = expressionsProcessed.get(hash);
+		if (exp == null) {
+			return Utils.UNDEFINED;
+		}
+		return exp;
 	}
 	
 	public ArrayList<Variable> getParams(String function) {
@@ -530,14 +534,14 @@ public class TypeInferrer {
 	
 	private String binary_expression(JsonObject expression, Function function) {
 		String operator = expression.get(Utils.OPERATOR).getAsString();
-		if (operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ) || operator.equals(Utils.OP_MIN)  || operator.equals(Utils.OP_MAX) || operator.equals(Utils.OP_MINEQ) || operator.equals(Utils.OP_MAXEQ)) {
-			return Utils.BOOLEAN;
-		}
-		
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
 		String type1 = expression(left, function);
 		String type2 = expression(right, function);
+		
+		if (operator.equals(Utils.OP_TEQ) || operator.equals(Utils.OP_TNEQ) || operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ) || operator.equals(Utils.OP_MIN)  || operator.equals(Utils.OP_MAX) || operator.equals(Utils.OP_MINEQ) || operator.equals(Utils.OP_MAXEQ)) {
+			return Utils.BOOLEAN;
+		}
 		
 		// Get lowest representation for a numeric operation
 		int priority1 = Utils.NUMERIC.indexOf(type1);

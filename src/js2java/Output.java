@@ -443,12 +443,68 @@ public class Output {
 	}
 	
 	private String binary_expression(JsonObject expression, Function function) {
-		String operator = expression.get(Utils.OPERATOR).getAsString();		
+		String operator = expression.get(Utils.OPERATOR).getAsString();	
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		String exp = "(" + expression(left, function, varTypes.getExpression(expression.hashCode()));
-		exp += " " + operator + " ";
-		exp += expression(right, function, varTypes.getExpression(expression.hashCode())) + ")";
+		
+		String exp = "";
+		if (operator.equals(Utils.OP_TEQ) || operator.equals(Utils.OP_TNEQ) || operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ) || operator.equals(Utils.OP_MIN)  || operator.equals(Utils.OP_MAX) || operator.equals(Utils.OP_MINEQ) || operator.equals(Utils.OP_MAXEQ)) {
+			String l = varTypes.getExpression(left.hashCode());
+			String r = varTypes.getExpression(right.hashCode());
+			
+			if (l.equals(Utils.STRING) && r.equals(Utils.STRING) && operator.equals(Utils.OP_NEQ)) {
+				exp = "!(";
+			}
+			else {
+				exp = "(";
+			}
+			
+			// Left
+			String tl = expression(left, function, Utils.UNDEFINED);
+			if (l.equals(Utils.BOOLEAN)) {
+				exp += "(" + tl + " ? 1: 0" + ")";
+			}
+			else if ((l.equals(Utils.STRING) && !r.equals(Utils.STRING))
+					|| (l.equals(Utils.STRING) && r.equals(Utils.STRING) && !operator.equals(Utils.OP_EQ) && !operator.equals(Utils.OP_NEQ))) {
+				exp += "(" + tl + ".matches(\"-?\\\\d+(\\\\.\\\\d+)?\") ? Double.parseDouble(" + tl + ") : Double.MAX_VALUE" + ")";
+			}
+			else {
+				exp += tl;
+			}
+			
+			
+			if (l.equals(Utils.STRING) && r.equals(Utils.STRING) && (operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ))) {
+				exp += ".equals(";
+			}
+			else {
+				exp += " " + operator + " ";
+			}
+			
+			
+			// Right
+			String tr = expression(right, function, Utils.UNDEFINED);
+			if (r.equals(Utils.BOOLEAN)) {
+				exp += "(" + tr + " ? 1: 0" + ")";
+			}
+			else if ((r.equals(Utils.STRING) && !l.equals(Utils.STRING))
+					|| (l.equals(Utils.STRING) && r.equals(Utils.STRING) && !operator.equals(Utils.OP_EQ) && !operator.equals(Utils.OP_NEQ))) {
+				exp += "(" + tr + ".matches(\"-?\\\\d+(\\\\.\\\\d+)?\") ? Double.parseDouble(" + tr + ") : Double.MAX_VALUE" + ")";
+			}
+			else {
+				exp += tr;
+			}
+			
+			if (l.equals(Utils.STRING) && r.equals(Utils.STRING) && (operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ))) {
+				exp += ")";
+			}
+			
+			exp += ")";
+		}
+		else {
+			exp = "(" + expression(left, function, varTypes.getExpression(expression.hashCode()));
+			exp += " " + operator + " ";
+			exp += expression(right, function, varTypes.getExpression(expression.hashCode())) + ")";
+		}
 		
 		return exp;
 	}

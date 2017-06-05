@@ -104,6 +104,38 @@
         {
             "type": "ExpressionStatement",
             "expression": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                    "type": "Identifier",
+                    "name": "e"
+                },
+                "right": {
+                    "type": "BinaryExpression",
+                    "operator": "%",
+                    "left": {
+                        "type": "BinaryExpression",
+                        "operator": "+",
+                        "left": {
+                            "type": "Identifier",
+                            "name": "a"
+                        },
+                        "right": {
+                            "type": "Identifier",
+                            "name": "b"
+                        }
+                    },
+                    "right": {
+                        "type": "Literal",
+                        "value": 5,
+                        "raw": "5"
+                    }
+                }
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
                 "type": "CallExpression",
                 "callee": {
                     "type": "MemberExpression",
@@ -133,6 +165,10 @@
                     {
                         "type": "Identifier",
                         "name": "d"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "e"
                     }
                 ]
             }

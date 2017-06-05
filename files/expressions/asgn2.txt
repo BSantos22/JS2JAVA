@@ -3,4 +3,5 @@ var a = 5+3.0;
 var b = 4-2;
 c = a*b;
 d = b/b;
-console.log(a, b, c, d);
+e = (a+b)%5;
+console.log(a, b, c, d, e);

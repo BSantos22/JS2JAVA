@@ -98,6 +98,8 @@ public class Utils {
 	public static final String OP_NOT = "!";
 	public static final String OP_INC = "++";
 	public static final String OP_DEC = "--";
+	public static final String OP_TEQ = "===";
+	public static final String OP_TNEQ = "!==";
 	public static final String OP_EQ = "==";
 	public static final String OP_NEQ = "!=";
 	public static final String OP_MAX = ">";
