@@ -1,6 +1,7 @@
 package js2java;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.JsonArray;
@@ -14,16 +15,19 @@ import utils.Utils;
 public class TypeInferrer {	
 	private ArrayList<Function> functions;
 	private ArrayList<Variable> defined;
+	private HashMap<Integer, String> expressionsProcessed;
 	
 	public TypeInferrer(JsonObject js, JsonObject vars) {
 		functions = new ArrayList<Function>();
 		defined = new ArrayList<Variable>();
+		expressionsProcessed = new HashMap<Integer, String>();
 		
 		addTypeDef(vars);
 		Function global = new Function("global", null);
 		functions.add(global);
 		addDeclaredVariables(js, global);
 		inferScope(global);
+		addDeclaredTypes();
 		
 		String prev_variables = "";
 		String variables = "";
@@ -31,16 +35,48 @@ public class TypeInferrer {
 			prev_variables = variables;
 			inferTypes(js);
 			variables = functions.toString();
-		} while(!prev_variables.equals(variables));
+		} while (!prev_variables.equals(variables));
+		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("Variable types");
+		System.out.println("--------------");
+		for (Function f: functions) {
+			System.out.println("");
+			System.out.println(f);
+		}
+		
 	}
 	
 	public ArrayList<Function> getFunctions() {
 		return functions;
 	}
 	
+	public String getExpression(int hash) {
+		String exp = expressionsProcessed.get(hash);
+		if (exp == null) {
+			return Utils.UNDEFINED;
+		}
+		return exp;
+	}
+	
+	public ArrayList<Variable> getParams(String function) {
+		for (Function f: functions) {
+			if (f.getName().equals(function)) {
+				return f.getParameters();
+			}
+		}
+		
+		return new ArrayList<Variable>();
+	}
+	
 	// Adds variables in type definition file to defined
 	// Ignores variables of invalid type
 	public void addTypeDef(JsonObject vars) {
+		if (vars == null) {
+			return;
+		}
+		
 		JsonArray a = (JsonArray) vars.get(Utils.VARS);
 		for (int i = 0; i < a.size(); i++) {
 			String name = ((JsonObject) a.get(i)).get(Utils.NAME).getAsString();
@@ -72,7 +108,9 @@ public class TypeInferrer {
 					continue;
 				}
 				// Ignore array length calls
-				else if (object.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION) && entry.getKey().equals(Utils.PROPERTY) && entry.getValue().getAsJsonObject().get(Utils.NAME).getAsString().equals(Utils.LENGTH)) {
+				else if (object.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION) && 
+						entry.getKey().equals(Utils.PROPERTY) &&
+						entry.getValue().getAsJsonObject().get(Utils.NAME) != null) {
 					continue;
 				}
 				else {
@@ -164,6 +202,24 @@ public class TypeInferrer {
 		}
 	}
 
+	// Add types declared in the types json
+	public void addDeclaredTypes() {
+		for (Function f: functions) {
+			ArrayList<Variable> allVariables = new ArrayList<Variable>();
+			allVariables.addAll(f.getDeclared());
+			allVariables.addAll(f.getUsed());
+			allVariables.addAll(f.getParameters());
+			
+			for (Variable v: allVariables) {
+				for (Variable d: defined) {
+					if (d.equals(v)) {
+						v.addType(d.getType());
+					}
+				}
+			}
+		}
+	}
+	
 	// Infer types for each use of a variable
 	public void inferTypes(JsonObject js) {		
 		if (js.get(Utils.TYPE).getAsString().equals(Utils.PROGRAM)) {
@@ -247,7 +303,8 @@ public class TypeInferrer {
 				String type = expression(init, function);
 				
 				assign.addType(type);
-			}	
+				expressionsProcessed.put(dec.hashCode(), type);
+			}
 		}
 		
 		return Utils.UNDEFINED;
@@ -331,14 +388,7 @@ public class TypeInferrer {
 			}
 		}
 		
-		if (new_function != null) {
-			/*
-			JsonArray params = expression.get(Utils.PARAMS).getAsJsonArray();
-			for (JsonElement e : params) {
-				Variable param = new_function.getParameter(e.getAsJsonObject().get(Utils.NAME).getAsString());				
-			}
-			*/
-			
+		if (new_function != null) {			
 			JsonObject body = expression.get(Utils.BODY).getAsJsonObject();
 			if (body.get(Utils.TYPE).getAsString().equals(Utils.BLOCK_STATEMENT)) {
 				block(body.get(Utils.BODY).getAsJsonArray(), new_function);
@@ -353,43 +403,61 @@ public class TypeInferrer {
 	}
 	
 	private String expression(JsonObject expression, Function function) {
+		String type;
+		int hash = expression.hashCode();
 		switch (((JsonObject) expression).get(Utils.TYPE).getAsString()) {
 			case Utils.VARIABLE_DECLARATION:
-				return variable_declaration(expression, function);
+				type = variable_declaration(expression, function);
+				break;
 			case Utils.CALL_EXPRESSION:
-				return call_expression(expression, function);
+				type = call_expression(expression, function);
+				break;
 			case Utils.ASSIGNMENT_EXPRESSION:
-				return assignment_expression(expression, function);
+				type = assignment_expression(expression, function);
+				break;
 			case Utils.LOGICAL_EXPRESSION:
-				return logical_expression(expression, function);
+				type = logical_expression(expression, function);
+				break;
 			case Utils.UNARY_EXPRESSION:
-				return unary_expression(expression, function);
+				type = unary_expression(expression, function);
+				break;
 			case Utils.UPDATE_EXPRESSION:
-				return update_expression(expression, function);
+				type = update_expression(expression, function);
+				break;
 			case Utils.BINARY_EXPRESSION:
-				return binary_expression(expression, function);
+				type = binary_expression(expression, function);
+				break;
 			case Utils.ARRAY_EXPRESSION:
-				return array_expression(expression, function);
+				type = array_expression(expression, function);
+				break;
 			case Utils.MEMBER_EXPRESSION:
-				String type = member_expression(expression, function).getType();
+				type = member_expression(expression, function).getType();
 				if (type.contains("[]")) {
 					type = type.replaceAll("\\[", "");
 					type = type.replaceAll("\\]", "");
 				}
-				return type;
+				break;
 			case Utils.IDENTIFIER:	
-				return identifier(expression, function).getType();
+				type = identifier(expression, function).getType();
+				break;
 			case Utils.LITERAL:
-				return literal(expression);				
+				type = literal(expression);
+				break;
 			default:
-				return Utils.UNDEFINED;
+				type = Utils.UNDEFINED;
+				break;
 		}
+		
+		expressionsProcessed.put(hash, type);
+		return type;
 	}
 	
 	private String call_expression(JsonObject expression, Function function) {
-		String function_name;
-		if (expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME) == null) {
-			function_name = "";
+		String function_name = null;
+		String array_name = null;
+		if (expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION)) {
+			function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME).getAsString();
+			array_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.OBJECT).getAsJsonObject().get(Utils.NAME).getAsString();
 		}
 		else {
 			function_name = expression.get(Utils.CALLEE).getAsJsonObject().get(Utils.NAME).getAsString();
@@ -400,13 +468,18 @@ public class TypeInferrer {
 			expression(arg.getAsJsonObject(), function);
 		}
 		
+		if (array_name != null && function_name.equals(Utils.PUSH)) {
+			Variable v = function.getVariable(array_name);
+			for (int i = 0; i < args.size(); i++) {
+				v.addType(expression(args.get(i).getAsJsonObject(), function)+"[]");
+			}
+		}
+		
 		for (Function f: functions) {
-			if (f.getName().equals(function_name)) {
-				JsonArray arguments = expression.get(Utils.ARGUMENTS).getAsJsonArray();
-				
+			if (f.getName().equals(function_name)) {				
 				// Add type of each parameter to called function
-				for (int i = 0; i < arguments.size(); i++) {
-					f.getParameter(i).addType(expression(arguments.get(i).getAsJsonObject(), function));
+				for (int i = 0; i < args.size(); i++) {
+					f.getParameter(i).addType(expression(args.get(i).getAsJsonObject(), function));
 				}
 				
 				return f.getReturnType();
@@ -441,7 +514,7 @@ public class TypeInferrer {
 	private String unary_expression(JsonObject expression, Function function) {
 		String operator = expression.get(Utils.OPERATOR).getAsString();
 		JsonObject argument = expression.get(Utils.ARGUMENT).getAsJsonObject();
-		if (operator.equals(Utils.OP_EXC)) {
+		if (operator.equals(Utils.OP_NOT)) {
 			return Utils.BOOLEAN;
 		}
 		else if (operator.equals(Utils.OP_DIF)) {
@@ -463,21 +536,21 @@ public class TypeInferrer {
 	
 	private String binary_expression(JsonObject expression, Function function) {
 		String operator = expression.get(Utils.OPERATOR).getAsString();
-		if (operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ) || operator.equals(Utils.OP_MIN)  || operator.equals(Utils.OP_MAX) || operator.equals(Utils.OP_MINEQ) || operator.equals(Utils.OP_MAXEQ)) {
-			return Utils.BOOLEAN;
-		}
-		
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
 		String type1 = expression(left, function);
 		String type2 = expression(right, function);
+		
+		if (operator.equals(Utils.OP_TEQ) || operator.equals(Utils.OP_TNEQ) || operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ) || operator.equals(Utils.OP_MIN)  || operator.equals(Utils.OP_MAX) || operator.equals(Utils.OP_MINEQ) || operator.equals(Utils.OP_MAXEQ)) {
+			return Utils.BOOLEAN;
+		}
 		
 		// Get lowest representation for a numeric operation
 		int priority1 = Utils.NUMERIC.indexOf(type1);
 		int priority2 = Utils.NUMERIC.indexOf(type2);
 		if (priority1 != -1 && priority2 != -1) {
 			if (operator.equals(Utils.OP_DIV)) {
-				if (!type1.equals(Utils.DOUBLE) && !type2.equals(Utils.DOUBLE)) {
+				if (!type1.equals(Utils.DOUBLE) && !type2.equals(Utils.DOUBLE) && !type1.equals(Utils.LONG) && !type2.equals(Utils.LONG)) {
 					return Utils.FLOAT;					
 				}
 				else {
@@ -542,7 +615,7 @@ public class TypeInferrer {
 		return Utils.UNDEFINED;
 	}
 	
-	public String array_expression(JsonObject expression, Function function) {
+	private String array_expression(JsonObject expression, Function function) {
 		JsonArray elements = expression.get(Utils.ELEMENTS).getAsJsonArray();
 		Variable temp = new Variable("temp");
 		for (JsonElement e: elements) {
@@ -550,14 +623,8 @@ public class TypeInferrer {
 			String type = expression(o, function);
 			temp.addType(type);
 		}
-		String type;
 		
-		if(temp.getType() == "int")
-			type = "Integer";
-		else
-			type = temp.getType();
-		
-		return "ArrayList<" + type + ">";
+		return temp.getType()+"[]";
 	}
 	
 	private Variable member_expression(JsonObject expression, Function function) {

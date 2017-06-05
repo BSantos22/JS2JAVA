@@ -1,7 +1,0 @@
-{
-	"vars": [
-		{"name": "a", "type": "int"},
-		{"name": "b", "type": "double"},
-		{"name": "c", "type": "double"}
-	]
-}

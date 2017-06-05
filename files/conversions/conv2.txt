@@ -1,0 +1,16 @@
+// When are numbers considered as true or false?
+if (0) { // false
+	console.log("1");
+}
+if (0.0) { // false
+	console.log("2");
+}
+if (1) { // true
+	console.log("3");
+}
+if (1.0) { // true
+	console.log("4");
+}
+if (-1) { // true
+	console.log("5");
+}

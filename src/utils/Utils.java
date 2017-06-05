@@ -8,6 +8,7 @@ public class Utils {
 	public static final String CONSOLE = "console";
 	public static final String LENGTH = "length";
 	public static final String LOG = "log";
+	public static final String PUSH = "push";
 	
 	// Common types
 	public static final String STRING = "string";
@@ -28,9 +29,7 @@ public class Utils {
 	public static final String CHAR = "char";
 	public static final ArrayList<String> NUMERIC = new ArrayList<String>(Arrays.asList(BYTE, SHORT, INT, LONG, FLOAT, DOUBLE));
 	
-	public static final String PUSH = "push";
-	
-	public static final String DYNAMIC = "dynamic";
+	public static final String AMBIGUOUS = "ambiguous";
 	
 	// Check Java valid type
 	public static boolean isValidType(String s) {
@@ -97,9 +96,11 @@ public class Utils {
 	public static final String BINARY_EXPRESSION = "BinaryExpression";
 	
 	// AST OPERATORS
-	public static final String OP_EXC = "!";
+	public static final String OP_NOT = "!";
 	public static final String OP_INC = "++";
 	public static final String OP_DEC = "--";
+	public static final String OP_TEQ = "===";
+	public static final String OP_TNEQ = "!==";
 	public static final String OP_EQ = "==";
 	public static final String OP_NEQ = "!=";
 	public static final String OP_MAX = ">";

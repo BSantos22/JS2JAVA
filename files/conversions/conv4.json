@@ -1,0 +1,274 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "a"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "+",
+                        "left": {
+                            "type": "Literal",
+                            "value": 5,
+                            "raw": "5"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": "5",
+                            "raw": "\"5\""
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "b"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "-",
+                        "left": {
+                            "type": "Literal",
+                            "value": 5,
+                            "raw": "5"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": "5",
+                            "raw": "\"5\""
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "c"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "*",
+                        "left": {
+                            "type": "Literal",
+                            "value": 5,
+                            "raw": "5"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": "5",
+                            "raw": "\"5\""
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "d"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "/",
+                        "left": {
+                            "type": "Literal",
+                            "value": 5,
+                            "raw": "5"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": "5",
+                            "raw": "\"5\""
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "e"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "+",
+                        "left": {
+                            "type": "Literal",
+                            "value": 5,
+                            "raw": "5"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": "b",
+                            "raw": "\"b\""
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "f"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "-",
+                        "left": {
+                            "type": "Literal",
+                            "value": 5,
+                            "raw": "5"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": "b",
+                            "raw": "\"b\""
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "g"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "*",
+                        "left": {
+                            "type": "Literal",
+                            "value": 5,
+                            "raw": "5"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": "b",
+                            "raw": "\"b\""
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "h"
+                    },
+                    "init": {
+                        "type": "BinaryExpression",
+                        "operator": "/",
+                        "left": {
+                            "type": "Literal",
+                            "value": 5,
+                            "raw": "5"
+                        },
+                        "right": {
+                            "type": "Literal",
+                            "value": "b",
+                            "raw": "\"b\""
+                        }
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "callee": {
+                    "type": "MemberExpression",
+                    "computed": false,
+                    "object": {
+                        "type": "Identifier",
+                        "name": "console"
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "name": "log"
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "name": "a"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "b"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "c"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "d"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "e"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "f"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "g"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "h"
+                    }
+                ]
+            }
+        }
+    ],
+    "sourceType": "script"
+}

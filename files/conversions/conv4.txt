@@ -1,0 +1,10 @@
+// When are strings considered numbers?
+var a = 5 + "5";
+var b = 5 - "5";
+var c = 5 * "5";
+var d = 5 / "5";
+var e = 5 + "b";
+var f = 5 - "b";
+var g = 5 * "b";
+var h = 5 / "b";
+console.log(a, b, c, d, e, f, g, h);

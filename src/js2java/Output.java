@@ -24,13 +24,25 @@ public class Output {
 		outputFileName = fileName.substring(0, 1).toUpperCase() + fileName.substring(1);
 		
 		try {
-			outputFile = new PrintWriter("output/"+outputFileName+".java", "UTF-8");
+			outputFile = new PrintWriter("src/output/"+outputFileName+".java", "UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void start() {
+	public void start(String jsCode) {
+		if (jsCode != null) {
+			println("/*", 0);
+			println("JS code", 0);
+			println("", 0);
+			println(jsCode, 0);		
+			println("*/", 0);
+		}
+		println("", 0);
+		println("package output;", 0);
+		println("", 0);
+		println("import java.util.ArrayList;", 0);
+		println("", 0);
 		Function global = varTypes.getFunctions().get(0);
 		function_declaration(inputFile, global, 0);
 		outputFile.close();
@@ -45,7 +57,18 @@ public class Output {
 		}
 		
 		for (Variable v: function.getDeclared()) {
-			println("public static " + v.getType() + " " + v.getName() + ";", ind+1);
+			String type = v.getType();
+			if (v.getType().equals(Utils.STRING)) {
+				type = "String";
+			}
+			else if (v.getType().contains("[]")) {
+				type = v.getType().replaceAll("\\[", "");
+				type = type.replaceAll("\\]", "");
+				type = toObject(type);				
+				type = "ArrayList<" + type + ">";
+			}
+			
+			println("public static " + type + " " + v.getName() + ";", ind+1);
 		}
 		
 		ArrayList<JsonObject> nestedFunctions;
@@ -159,15 +182,9 @@ public class Output {
 					Variable var = function.getVariable(var_name);
 					
 					JsonObject init = (JsonObject) dec.get(Utils.INIT);
-					
-					if(((JsonObject) init).get(Utils.TYPE).getAsString().equals(Utils.ARRAY_EXPRESSION)) {
-						s += varTypes.array_expression(init, function) + " " + var.getName() + " = " + expression(init, function);
-					}
-					else 
-						s += var.getName() + " = " + expression(init, function);
-					
+					s += var.getName() + " = " + expression(init, function, varTypes.getExpression(dec.hashCode()));
 					if (print) {
-						s += ";\n";
+						s += ";";
 					}
 				}
 			}
@@ -184,10 +201,10 @@ public class Output {
 		// Condition
 		JsonObject test = expression.get(Utils.TEST).getAsJsonObject();
 		if (elseif) {
-			println("if (" + expression(test, function) + ") {", 0);
+			println("if (" + expression(test, function, Utils.BOOLEAN) + ") {", 0);
 		}
 		else {
-			println("if (" + expression(test, function) + ") {", ind);
+			println("if (" + expression(test, function, Utils.BOOLEAN) + ") {", ind);
 		}
 		
 		// Then
@@ -219,7 +236,7 @@ public class Output {
 	private void while_statement(JsonObject expression, Function function, int ind) {
 		// Condition
 		JsonObject test = expression.get(Utils.TEST).getAsJsonObject();
-		println("while (" + expression(test, function) + ") {", ind);
+		println("while (" + expression(test, function, Utils.BOOLEAN) + ") {", ind);
 		
 		// Then
 		JsonObject body = expression.get(Utils.BODY).getAsJsonObject();
@@ -241,21 +258,21 @@ public class Output {
 		
 		// Condition
 		JsonObject test = expression.get(Utils.TEST).getAsJsonObject();
-		println("while (" + expression(test, function) + ");", ind);
+		println("while (" + expression(test, function, Utils.BOOLEAN) + ");", ind);
 	}
 	
 	private void for_statement(JsonObject expression, Function function, int ind) {
 		// Init
 		JsonObject init = expression.get(Utils.INIT).getAsJsonObject();
-		String i = expression(init, function);
+		String i = expression(init, function, Utils.UNDEFINED);
 		
 		// Condition
 		JsonObject test = expression.get(Utils.TEST).getAsJsonObject();
-		String c = expression(test, function);
+		String c = expression(test, function, Utils.UNDEFINED);
 		
 		// Update
 		JsonObject update = expression.get(Utils.UPDATE).getAsJsonObject();
-		String u = expression(update, function);
+		String u = expression(update, function, Utils.UNDEFINED);
 		
 		println("for (" + i + "; " + c + "; " + u + ") {",ind);
 		
@@ -270,36 +287,71 @@ public class Output {
 	
 	private void return_statement(JsonObject expression, Function function, int ind) {
 		JsonObject argument = expression.get(Utils.ARGUMENT).getAsJsonObject();
-		println("return " + expression(argument, function) + ";", ind);
+		println("return " + expression(argument, function, function.getReturnType()) + ";", ind);
 	}
 	
-	private String expression(JsonObject expression, Function function) {
+	// type - the type this expression should be
+	private String expression(JsonObject expression, Function function, String type) {
+		String t;
+		String expressionType = varTypes.getExpression(expression.hashCode());
+		
 		switch (((JsonObject) expression).get(Utils.TYPE).getAsString()) {
 			case Utils.VARIABLE_DECLARATION:
-				return variable_declaration(expression, function, 0, false);
+				t = variable_declaration(expression, function, 0, false);
+				break;
 			case Utils.CALL_EXPRESSION:
-				return call_expression(expression, function);
+				t = call_expression(expression, function);
+				break;
 			case Utils.ASSIGNMENT_EXPRESSION:
-				return assignment_expression(expression, function);
+				t = assignment_expression(expression, function);
+				break;
 			case Utils.LOGICAL_EXPRESSION:
-				return logical_expression(expression, function);
+				t = logical_expression(expression, function);
+				break;
 			case Utils.UNARY_EXPRESSION:
-				return unary_expression(expression, function);
+				t = unary_expression(expression, function);
+				break;
 			case Utils.UPDATE_EXPRESSION:
-				return update_expression(expression, function);
+				t = update_expression(expression, function);
+				break;
 			case Utils.BINARY_EXPRESSION:
-				return binary_expression(expression, function);
+				t = binary_expression(expression, function);
+				break;
 			case Utils.ARRAY_EXPRESSION:
-				return array_expression(expression, function);
+				t = array_expression(expression, function, type);
+				break;
 			case Utils.MEMBER_EXPRESSION:
-				return member_expression(expression, function);
+				t = member_expression(expression, function);
+				break;
 			case Utils.IDENTIFIER:	
-				return identifier(expression, function);
+				t = identifier(expression, function);
+				break;
 			case Utils.LITERAL:
-				return literal(expression);				
+				t = literal(expression);
+				break;
 			default:
-				return "";
+				t = "";
+				break;
 		}
+		
+		if (type.equals(Utils.BOOLEAN)) {
+			if (expressionType.equals(Utils.STRING)) {
+				t = "(" + t + ".equals(\"\") ? false: true" + ")";
+			}
+			else if (Utils.NUMERIC.contains(expressionType)) {
+				t = "(" + t + "== 0 ? false: true" + ")";
+			}
+		}
+		else if (Utils.NUMERIC.contains(type)) {
+			if (expressionType.equals(Utils.STRING)) {
+				t = "(" + t + ".matches(\"-?\\\\d+(\\\\.\\\\d+)?\") ? Double.parseDouble(" + t + ") : Double.MAX_VALUE" + ")";
+			}
+			else if (expressionType.equals(Utils.BOOLEAN)) {
+				t = "(" + t + " ? 1: 0" + ")";
+			}
+		}
+		
+		return t;
 	}
 	
 	private String call_expression(JsonObject expression, Function function) {
@@ -315,16 +367,17 @@ public class Output {
 		}
 		
 		String exp = "";
+		ArrayList<Variable> params = new ArrayList<Variable>();
 		if (class_name.equals(Utils.CONSOLE) && function_name.equals(Utils.LOG)) {
 			exp += "System.out.println(";
 		}
-		
 		else if (function_name.equals(Utils.PUSH)) {
-			exp += class_name + "." + "add" + "(";
+			exp += class_name + "." + "add(";
+			params = varTypes.getParams(function_name);
 		}
-		
 		else {
 			exp += class_name + "." + function_name + "(";
+			params = varTypes.getParams(function_name);
 		}
 		
 		JsonArray arguments = expression.get(Utils.ARGUMENTS).getAsJsonArray();
@@ -340,7 +393,13 @@ public class Output {
 				}
 			}
 			
-			exp += expression(arguments.get(i).getAsJsonObject(), function);
+			JsonObject arg = arguments.get(i).getAsJsonObject();
+			if (i < params.size() && params.get(i) != null && params.get(i).getType() != null) {
+				exp += expression(arg, function, params.get(i).getType());
+			}
+			else {
+				exp += expression(arg, function, Utils.UNDEFINED);
+			}
 			
 			if (i != arguments.size()-1 && class_name.equals(Utils.CONSOLE) && function_name.equals(Utils.LOG)) {
 				exp += "); ";
@@ -354,7 +413,7 @@ public class Output {
 
 	private String assignment_expression(JsonObject expression, Function function) {
 		String exp = "";
-		
+		String operator = expression.get(Utils.OPERATOR).getAsString();
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		if (left.get(Utils.TYPE).getAsString().equals(Utils.MEMBER_EXPRESSION)) {
 			exp += member_expression(left, function);
@@ -364,7 +423,7 @@ public class Output {
 		}
 		
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		exp += " = " + expression(right, function);
+		exp += " " + operator + " " + expression(right, function, varTypes.getExpression(left.hashCode()));
 		
 		return exp;
 	}
@@ -373,9 +432,9 @@ public class Output {
 		String operator = expression.get(Utils.OPERATOR).getAsString();		
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		String exp = expression(left, function);
+		String exp = "(" + expression(left, function, Utils.BOOLEAN);
 		exp += " " + operator + " ";
-		exp += expression(right, function);
+		exp += expression(right, function, Utils.BOOLEAN) + ")";
 		
 		return exp;
 	}
@@ -383,24 +442,81 @@ public class Output {
 	private String unary_expression(JsonObject expression, Function function) {
 		String exp = expression.get(Utils.OPERATOR).getAsString();
 		JsonObject argument = (JsonObject) expression.get(Utils.ARGUMENT);
-		exp += expression(argument, function);
+		exp += expression(argument, function, varTypes.getExpression(expression.hashCode()));
+		
 		return exp;
 	}
 
 	private String update_expression(JsonObject expression, Function function) {
 		JsonObject argument = (JsonObject) expression.get(Utils.ARGUMENT);
 		String exp = variable(argument, function);
-		exp += expression.get(Utils.OPERATOR).getAsString();	
+		exp += expression.get(Utils.OPERATOR).getAsString();
 		return exp;
 	}
 	
 	private String binary_expression(JsonObject expression, Function function) {
-		String operator = expression.get(Utils.OPERATOR).getAsString();		
+		String operator = expression.get(Utils.OPERATOR).getAsString();	
 		JsonObject left = (JsonObject) expression.get(Utils.LEFT);
 		JsonObject right = (JsonObject) expression.get(Utils.RIGHT);
-		String exp = expression(left, function);
-		exp += " " + operator + " ";
-		exp += expression(right, function);
+		
+		String exp = "";
+		if (operator.equals(Utils.OP_TEQ) || operator.equals(Utils.OP_TNEQ) || operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ) || operator.equals(Utils.OP_MIN)  || operator.equals(Utils.OP_MAX) || operator.equals(Utils.OP_MINEQ) || operator.equals(Utils.OP_MAXEQ)) {
+			String l = varTypes.getExpression(left.hashCode());
+			String r = varTypes.getExpression(right.hashCode());
+			
+			if (l.equals(Utils.STRING) && r.equals(Utils.STRING) && operator.equals(Utils.OP_NEQ)) {
+				exp = "!(";
+			}
+			else {
+				exp = "(";
+			}
+			
+			// Left
+			String tl = expression(left, function, Utils.UNDEFINED);
+			if (l.equals(Utils.BOOLEAN)) {
+				exp += "(" + tl + " ? 1: 0" + ")";
+			}
+			else if ((l.equals(Utils.STRING) && !r.equals(Utils.STRING))
+					|| (l.equals(Utils.STRING) && r.equals(Utils.STRING) && !operator.equals(Utils.OP_EQ) && !operator.equals(Utils.OP_NEQ))) {
+				exp += "(" + tl + ".matches(\"-?\\\\d+(\\\\.\\\\d+)?\") ? Double.parseDouble(" + tl + ") : Double.MAX_VALUE" + ")";
+			}
+			else {
+				exp += tl;
+			}
+			
+			
+			if (l.equals(Utils.STRING) && r.equals(Utils.STRING) && (operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ))) {
+				exp += ".equals(";
+			}
+			else {
+				exp += " " + operator + " ";
+			}
+			
+			
+			// Right
+			String tr = expression(right, function, Utils.UNDEFINED);
+			if (r.equals(Utils.BOOLEAN)) {
+				exp += "(" + tr + " ? 1: 0" + ")";
+			}
+			else if ((r.equals(Utils.STRING) && !l.equals(Utils.STRING))
+					|| (l.equals(Utils.STRING) && r.equals(Utils.STRING) && !operator.equals(Utils.OP_EQ) && !operator.equals(Utils.OP_NEQ))) {
+				exp += "(" + tr + ".matches(\"-?\\\\d+(\\\\.\\\\d+)?\") ? Double.parseDouble(" + tr + ") : Double.MAX_VALUE" + ")";
+			}
+			else {
+				exp += tr;
+			}
+			
+			if (l.equals(Utils.STRING) && r.equals(Utils.STRING) && (operator.equals(Utils.OP_EQ) || operator.equals(Utils.OP_NEQ))) {
+				exp += ")";
+			}
+			
+			exp += ")";
+		}
+		else {
+			exp = "(" + expression(left, function, varTypes.getExpression(expression.hashCode()));
+			exp += " " + operator + " ";
+			exp += expression(right, function, varTypes.getExpression(expression.hashCode())) + ")";
+		}
 		
 		return exp;
 	}
@@ -416,38 +532,69 @@ public class Output {
 		return "";
 	}
 	
-	private String array_expression(JsonObject expression, Function function) {
-		String array_form = varTypes.array_expression(expression, function);
-		String exp;
-		String  elems = "(Arrays.asList(";
+	private String array_expression(JsonObject expression, Function function, String objType) {
+		String expType = objType;
+		expType = expType.replace("[", "");
+		expType = expType.replace("]", "");
+		objType = toObject(expType);		
 		
+		String exp = "new ArrayList<" + objType + ">(){{";		
 		JsonArray elements = expression.get(Utils.ELEMENTS).getAsJsonArray();
 		for (int i = 0; i < elements.size(); i++) {
 			JsonObject o = elements.get(i).getAsJsonObject();
-			
-			if (i != 0) {
-				elems += ", " + expression(o, function);
-			}
-			else {
-				elems += expression(o, function);
-			}
+			exp += "add(" + expression(o, function, expType) + "); ";
 		}
 		
-		elems += "))";
-		exp = "new " + array_form + elems;
+		exp += "}}";
 		
 		return exp;
 	}
 	
+	private String toObject(String expType) {
+		if (expType.equals(Utils.STRING)) {
+			return "String";
+		}
+		else if (expType.equals(Utils.BOOLEAN)) {
+			return "Boolean";
+		}
+		else if (expType.equals(Utils.BYTE)) {
+			return "Byte";
+		}
+		else if (expType.equals(Utils.SHORT)) {
+			return "Short";
+		}
+		else if (expType.equals(Utils.INT)) {
+			return "Integer";
+		}
+		else if (expType.equals(Utils.LONG)) {
+			return "Long";
+		}
+		else if (expType.equals(Utils.FLOAT)) {
+			return "Float";
+		}
+		else if (expType.equals(Utils.DOUBLE)) {
+			return "Double";
+		}
+		else if (expType.equals(Utils.CHAR)) {
+			return "Character";
+		}
+		
+		return Utils.UNDEFINED;
+	}
+	
 	private String member_expression(JsonObject expression, Function function) {
 		String exp = expression.get(Utils.OBJECT).getAsJsonObject().get(Utils.NAME).getAsString();
-		if (expression.get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME).getAsString().equals(Utils.LENGTH)) {
-			exp += ".length";
+		JsonElement name = expression.get(Utils.PROPERTY).getAsJsonObject().get(Utils.NAME);
+		if (name != null) {
+			if (name.getAsString().equals(Utils.LENGTH)) {
+				exp += ".length";
+			}
 		}
 		else {
-			exp += "[";
-			exp += expression(expression.get(Utils.PROPERTY).getAsJsonObject(), function);
-			exp += "]";
+			JsonObject expType = expression.get(Utils.PROPERTY).getAsJsonObject();
+			exp += ".get(";
+			exp += expression(expType, function, Utils.INT);
+			exp += ")";
 		}
 		
 		return exp;
