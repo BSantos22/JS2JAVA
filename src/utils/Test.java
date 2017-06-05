@@ -7,7 +7,7 @@ public class Test {
 		int DECL_MAX = 1;
 		int IF_MAX = 4;
 		int LOOP_MAX = 3;
-		int ASGN_MAX = 7;
+		int ASGN_MAX = 8;
 		int CONV_MAX = 5;
 		int ARRAY_MAX = 3;
 		

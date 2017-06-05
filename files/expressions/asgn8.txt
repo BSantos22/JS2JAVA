@@ -1,0 +1,8 @@
+var a = 5;
+console.log(a++);
+console.log(a--);
+console.log(++a);
+console.log(--a);
+
+var b = ++a*a++;
+console.log(b);

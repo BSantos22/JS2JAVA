@@ -462,7 +462,16 @@ public class Output {
 	private String update_expression(JsonObject expression, Function function) {
 		JsonObject argument = (JsonObject) expression.get(Utils.ARGUMENT);
 		String exp = variable(argument, function);
-		exp += expression.get(Utils.OPERATOR).getAsString();
+		String operator = expression.get(Utils.OPERATOR).getAsString();
+		
+		if (expression.get(Utils.PREFIX).getAsString().equals(Utils.TRUE)) {
+			exp = operator + exp;
+		}
+		else {
+			exp = exp + operator;
+		}
+		
+		
 		return exp;
 	}
 	

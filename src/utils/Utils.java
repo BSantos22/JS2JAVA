@@ -68,6 +68,8 @@ public class Utils {
 	public static final String UPDATE = "update";
 	public static final String ARGUMENTS = "arguments";
 	public static final String PROPERTY = "property";
+	public static final String PREFIX = "prefix";
+	public static final String TRUE = "true";
 	
 	public static final String IDENTIFIER = "Identifier";
 	public static final String LITERAL = "Literal";
