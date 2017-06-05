@@ -261,7 +261,7 @@ public class Output {
 		
 		// Condition
 		JsonObject test = expression.get(Utils.TEST).getAsJsonObject();
-		println("while (" + expression(test, function, Utils.BOOLEAN) + ");", ind);
+		println("} while (" + expression(test, function, Utils.BOOLEAN) + ");", ind);
 	}
 	
 	private void for_statement(JsonObject expression, Function function, int ind) {
