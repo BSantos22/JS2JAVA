@@ -41,21 +41,21 @@ As referenced above, the use of the parser provided by http://esprima.org/demo/p
 means that the semantic analysis on the Javascript code is already mostly done.
 
 **INTERMEDIATE REPRESENTATIONS (IRs):
-To analyse and generate code we transverse the provided AST directly, without the necessity of another representation.
+To analyze and generate code we transverse the provided AST directly, without the necessity of another representation.
 
 **CODE GENERATION:
 We begin by getting every identifier used to represent parameters and the declared and used
 variables of each function.
 By the order and location of variable declarations and uses are then infer the scope of each
 variable present throughout the code.
-We then procede to infer the types of these variables based on the value of the literals present
-in the code, operations the variables are in and other infered variables.
+We then proceed to infer the types of these variables based on the value of the literals present
+in the code, operations the variables are in and other inferred variables.
 If every variable has a known type we then generate the Java code.
 In this stage we transverse the AST and output the conversion as we go, making the necessary
 adjustments to ensure the result is valid Java code.
-To do this we make use of the variable types infered previously, convert arrays to ArrayLists,
+To do this we make use of the variable types inferred previously, convert arrays to ArrayLists,
 convert Javascript specific actions (access and adding array elements, print functions) to
-Javass, and output checks when there are type mismatches (arithmetic operations with booleans,
+Javas, and output checks when there are type mismatches (arithmetic operations with booleans,
 boolean expressions with ints...).
 
 **OVERVIEW:
@@ -73,7 +73,7 @@ having to be done manually.
  
 **TASK DISTRIBUTION:
 Every member of the group partook in the development of the two main modules of the project, the
-TypeInferer and the Output.
+TypeInferrer and the Output.
  
 **PROS:
 The biggest pro of our project is that it is able to infer the data types of most variables,
@@ -85,5 +85,5 @@ adding and accessing array elements, as well as loops, conditions, function bloc
 
 **CONS:
 The main con of the project is that it isn't able to parse some Javascript specific
-funcionalities like named indexes on arrays and variables with different types along their
+functionalities like named indexes on arrays and variables with different types along their
 lifetimes.
