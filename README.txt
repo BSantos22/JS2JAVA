@@ -1,8 +1,8 @@
 **PROJECT TITLE: JS2JAVA: A compiler to translate a subset of JavaScript to Java
 **GROUP: G16
-NAME1: Bruno Santos, NR1: 201402962, GRADE1: <0 to 20 values>, CONTRIBUTION1: 33%
-NAME2: Frederico Rocha, NR2: 201408030,  GRADE2: <0 to 20 values>, CONTRIBUTION2: 33%
-NAME3: José Costa, NR3: 201402717, GRADE3: <0 to 20 values>, CONTRIBUTION1: 33%
+NAME1: Bruno Santos, NR1: 201402962, GRADE1: 17, CONTRIBUTION1: 33%
+NAME2: Frederico Rocha, NR2: 201408030,  GRADE2: 17, CONTRIBUTION2: 33%
+NAME3: José Costa, NR3: 201402717, GRADE3: 17, CONTRIBUTION1: 33%
 
 **SUMMARY:
 This project generates Java code from a subset of JavaScript. 
