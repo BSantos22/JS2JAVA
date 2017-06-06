@@ -1,0 +1,3 @@
+Because of the configuration of our project, input files must be inside of the files/ directory.
+Nonetheless the folder examples inside of that directory contains the selected test examples
+asked, with the other examples being distributed by the other folders according to their type.

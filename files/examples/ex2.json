@@ -1,0 +1,362 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Literal",
+                "value": "a",
+                "raw": "\"a\""
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "a",
+                                    "raw": "\"a\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Literal",
+                "value": "",
+                "raw": "\"\""
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "b",
+                                    "raw": "\"b\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Literal",
+                "value": "true",
+                "raw": "\"true\""
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "c",
+                                    "raw": "\"c\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Literal",
+                "value": "false",
+                "raw": "\"false\""
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "d",
+                                    "raw": "\"d\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Literal",
+                "value": 0,
+                "raw": "0"
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "e",
+                                    "raw": "\"e\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Literal",
+                "value": 0,
+                "raw": "0.0"
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "f",
+                                    "raw": "\"f\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Literal",
+                "value": 1,
+                "raw": "1"
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "g",
+                                    "raw": "\"g\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "Literal",
+                "value": 1,
+                "raw": "1.0"
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "h",
+                                    "raw": "\"h\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        },
+        {
+            "type": "IfStatement",
+            "test": {
+                "type": "UnaryExpression",
+                "operator": "-",
+                "argument": {
+                    "type": "Literal",
+                    "value": 1,
+                    "raw": "1"
+                },
+                "prefix": true
+            },
+            "consequent": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "console"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "log"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Literal",
+                                    "value": "i",
+                                    "raw": "\"i\""
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "alternate": null
+        }
+    ],
+    "sourceType": "script"
+}

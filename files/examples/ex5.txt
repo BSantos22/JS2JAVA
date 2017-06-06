@@ -1,0 +1,16 @@
+// This example shows some more type mismatch corrections used to ensure JS and Java results are the same
+// Expected output:
+// true true true true true true true false false false true false
+var a = true > false;
+var b = true == 1;
+var c = "1" == 1;
+var d = true == "1";
+var e = "4" > 3;
+var f = "4" > "3";
+var g = 0 == "0";
+var h = "" == "0";
+var i = "true" == true;
+var j = "false" == false;
+var k = "a" == "a";
+var l = "a" != "a";
+console.log(a, b, c, d, e, f, g, h, i, j, k, l);

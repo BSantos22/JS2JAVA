@@ -1,0 +1,23 @@
+// This example show operations with arrays and loops
+// Expected output:
+// 68
+var array = [];
+for (var i = 0; i < 5; i++) {
+	array.push(i);
+}
+
+for (j = 0; j < array.length; j++) {
+	array[j] = array[j]*5;
+}
+
+do {
+	array.push(i);
+	i++;
+} while(array.length < 8);
+
+var sum = 0;
+for (var i = 0; i < array.length; i++) {
+	sum += array[i];
+}
+
+console.log(sum);

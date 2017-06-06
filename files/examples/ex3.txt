@@ -1,0 +1,14 @@
+// This example shows various types of binary and logical operations
+// Expected output:
+// 20 4 0 false false true true true true 4
+var a = 4*(2+4.0-true);
+var b = a/5;
+var c = a%5;
+var d = a == b;
+var e = d != c;
+var f = (a+b/c) > (d*e);
+var g = f < b-c;
+var h = f >= g;
+var i = c <= d;
+var j = ((d && e || f) || !(g && h) || i)*(c*a+b);
+console.log(a, b, c, d, e, f, g, h, i, j);

@@ -1,0 +1,370 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "array"
+                    },
+                    "init": {
+                        "type": "ArrayExpression",
+                        "elements": []
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "ForStatement",
+            "init": {
+                "type": "VariableDeclaration",
+                "declarations": [
+                    {
+                        "type": "VariableDeclarator",
+                        "id": {
+                            "type": "Identifier",
+                            "name": "i"
+                        },
+                        "init": {
+                            "type": "Literal",
+                            "value": 0,
+                            "raw": "0"
+                        }
+                    }
+                ],
+                "kind": "var"
+            },
+            "test": {
+                "type": "BinaryExpression",
+                "operator": "<",
+                "left": {
+                    "type": "Identifier",
+                    "name": "i"
+                },
+                "right": {
+                    "type": "Literal",
+                    "value": 5,
+                    "raw": "5"
+                }
+            },
+            "update": {
+                "type": "UpdateExpression",
+                "operator": "++",
+                "argument": {
+                    "type": "Identifier",
+                    "name": "i"
+                },
+                "prefix": false
+            },
+            "body": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "array"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "push"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Identifier",
+                                    "name": "i"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "ForStatement",
+            "init": {
+                "type": "AssignmentExpression",
+                "operator": "=",
+                "left": {
+                    "type": "Identifier",
+                    "name": "j"
+                },
+                "right": {
+                    "type": "Literal",
+                    "value": 0,
+                    "raw": "0"
+                }
+            },
+            "test": {
+                "type": "BinaryExpression",
+                "operator": "<",
+                "left": {
+                    "type": "Identifier",
+                    "name": "j"
+                },
+                "right": {
+                    "type": "MemberExpression",
+                    "computed": false,
+                    "object": {
+                        "type": "Identifier",
+                        "name": "array"
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "name": "length"
+                    }
+                }
+            },
+            "update": {
+                "type": "UpdateExpression",
+                "operator": "++",
+                "argument": {
+                    "type": "Identifier",
+                    "name": "j"
+                },
+                "prefix": false
+            },
+            "body": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "AssignmentExpression",
+                            "operator": "=",
+                            "left": {
+                                "type": "MemberExpression",
+                                "computed": true,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "array"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "j"
+                                }
+                            },
+                            "right": {
+                                "type": "BinaryExpression",
+                                "operator": "*",
+                                "left": {
+                                    "type": "MemberExpression",
+                                    "computed": true,
+                                    "object": {
+                                        "type": "Identifier",
+                                        "name": "array"
+                                    },
+                                    "property": {
+                                        "type": "Identifier",
+                                        "name": "j"
+                                    }
+                                },
+                                "right": {
+                                    "type": "Literal",
+                                    "value": 5,
+                                    "raw": "5"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "DoWhileStatement",
+            "body": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "CallExpression",
+                            "callee": {
+                                "type": "MemberExpression",
+                                "computed": false,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "array"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "push"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "type": "Identifier",
+                                    "name": "i"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "UpdateExpression",
+                            "operator": "++",
+                            "argument": {
+                                "type": "Identifier",
+                                "name": "i"
+                            },
+                            "prefix": false
+                        }
+                    }
+                ]
+            },
+            "test": {
+                "type": "BinaryExpression",
+                "operator": "<",
+                "left": {
+                    "type": "MemberExpression",
+                    "computed": false,
+                    "object": {
+                        "type": "Identifier",
+                        "name": "array"
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "name": "length"
+                    }
+                },
+                "right": {
+                    "type": "Literal",
+                    "value": 8,
+                    "raw": "8"
+                }
+            }
+        },
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "sum"
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 0,
+                        "raw": "0"
+                    }
+                }
+            ],
+            "kind": "var"
+        },
+        {
+            "type": "ForStatement",
+            "init": {
+                "type": "VariableDeclaration",
+                "declarations": [
+                    {
+                        "type": "VariableDeclarator",
+                        "id": {
+                            "type": "Identifier",
+                            "name": "i"
+                        },
+                        "init": {
+                            "type": "Literal",
+                            "value": 0,
+                            "raw": "0"
+                        }
+                    }
+                ],
+                "kind": "var"
+            },
+            "test": {
+                "type": "BinaryExpression",
+                "operator": "<",
+                "left": {
+                    "type": "Identifier",
+                    "name": "i"
+                },
+                "right": {
+                    "type": "MemberExpression",
+                    "computed": false,
+                    "object": {
+                        "type": "Identifier",
+                        "name": "array"
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "name": "length"
+                    }
+                }
+            },
+            "update": {
+                "type": "UpdateExpression",
+                "operator": "++",
+                "argument": {
+                    "type": "Identifier",
+                    "name": "i"
+                },
+                "prefix": false
+            },
+            "body": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "AssignmentExpression",
+                            "operator": "+=",
+                            "left": {
+                                "type": "Identifier",
+                                "name": "sum"
+                            },
+                            "right": {
+                                "type": "MemberExpression",
+                                "computed": true,
+                                "object": {
+                                    "type": "Identifier",
+                                    "name": "array"
+                                },
+                                "property": {
+                                    "type": "Identifier",
+                                    "name": "i"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+                "type": "CallExpression",
+                "callee": {
+                    "type": "MemberExpression",
+                    "computed": false,
+                    "object": {
+                        "type": "Identifier",
+                        "name": "console"
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "name": "log"
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Identifier",
+                        "name": "sum"
+                    }
+                ]
+            }
+        }
+    ],
+    "sourceType": "script"
+}

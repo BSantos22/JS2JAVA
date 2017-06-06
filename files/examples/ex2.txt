@@ -1,0 +1,31 @@
+// This code shows the type mismatch verifications done
+// Expected output:
+// a c d g h i
+if ("a") { // true
+	console.log("a");
+}
+if ("") { // false
+	console.log("b");
+}
+if ("true") { // true
+	console.log("c");
+}
+if ("false") { // true
+	console.log("d");
+}
+
+if (0) { // false
+	console.log("e");
+}
+if (0.0) { // false
+	console.log("f");
+}
+if (1) { // true
+	console.log("g");
+}
+if (1.0) { // true
+	console.log("h");
+}
+if (-1) { // true
+	console.log("i");
+}
